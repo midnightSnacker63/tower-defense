@@ -21,13 +21,13 @@ void keyPressed()
 {
   if(key == 'e')
   {
-    enemies.add(new Enemies(mouseX,mouseY,1));
+    enemies.add(new Enemies(mouseX,mouseY,0));
   }
 }
 void mousePressed()
 {
   if((mouseButton == RIGHT))//spawn new tower
-    towers.add(new Towers(mouseX,mouseY,1));
+    towers.add(new Towers(mouseX,mouseY,0));
   for(Towers t: towers)
   {
     if(dist(mouseX,mouseY,t.xPos,t.yPos) < t.size/2 && (mouseButton == LEFT))//grabbing towers
@@ -61,6 +61,13 @@ void handleTowers()
     t.drawTowers();
     t.snapToGrid();
   }
+  for(int i = 0; i < towers.size(); i++)
+  {
+    if(!towers.get(i).active)
+    {
+      towers.remove(i);
+    }
+  }
 }
 void handleEnemies()
 {
@@ -70,18 +77,12 @@ void handleEnemies()
     e.moveEnemies();
     
   }
-  //for( Enemies e:enemies )
-  //{
-  //  for ( Towers t: towers )
-  //  {
-  //    if( dist(e.xPos,e.yPos,t.xPos,t.yPos) < (e.size+t.size)/2)
-  //    {
-  //      e.frontBlocked = true;
-  //    }
-  //    else
-  //    {
-  //      e.frontBlocked = false;
-  //    }
-  //  }
-  //}
+  
+  for(int i = 0; i < enemies.size(); i++)
+  {
+    if(!enemies.get(i).active)
+    {
+      enemies.remove(i);
+    }
+  }
 }

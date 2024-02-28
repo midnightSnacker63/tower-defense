@@ -5,8 +5,10 @@ class Enemies
   float size;
   
   int type;
+  int power;
+  int maxHealth = 1;
+  int health = maxHealth;
   
-  //boolean frontBlocked;
   boolean active;
   
   public Enemies(float x, float y, int t)
@@ -25,11 +27,15 @@ class Enemies
     fill(200,10,10);
     circle(xPos,yPos,size);
     pop();
+    if(health <= 0)
+    {
+      active = false;
+    }
   }
   
   void moveEnemies()
   {
-    if(!frontBlocked())//only move if their fornt isnt blocked
+    if(!frontBlocked())//only move if their front isnt blocked
     {
       xSpd -= 0.15;
     }
@@ -45,6 +51,15 @@ class Enemies
     yPos += ySpd;
   }
   
+  void setTraits()
+  {
+    switch(type)
+    {
+      case 0:
+        maxHealth = 10;
+        return;
+    }
+  }
   boolean frontBlocked()//returns true if something is in front of an enemy
   {
     for( int i = 0; i < towers.size(); i++ )
@@ -52,4 +67,5 @@ class Enemies
         return true;
     return false;
   }
+  
 }
