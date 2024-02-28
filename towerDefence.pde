@@ -1,6 +1,9 @@
 ArrayList<Towers> towers = new ArrayList<Towers>();
 ArrayList<Enemies> enemies = new ArrayList<Enemies>();
-int boxSize = 75;
+
+int boxSize = 100;
+
+//boolean mouseOnGrid();
 
 void setup()
 {
@@ -9,6 +12,7 @@ void setup()
 }
 void draw()
 {
+  background(0);
   drawBackground();
   handleTowers();
   handleEnemies();
@@ -41,7 +45,7 @@ void mouseReleased()
 }
 void drawBackground()
 {
-  for(int i = 0; i < width-(boxSize*6); i += boxSize) 
+  for(int i = 0; i < width-(boxSize*3); i += boxSize) 
   {
     for(int j = 0; j < height-(boxSize*1); j += boxSize) 
     { 
@@ -64,5 +68,20 @@ void handleEnemies()
   {
     e.drawEnemies();
     e.moveEnemies();
+    
   }
+  //for( Enemies e:enemies )
+  //{
+  //  for ( Towers t: towers )
+  //  {
+  //    if( dist(e.xPos,e.yPos,t.xPos,t.yPos) < (e.size+t.size)/2)
+  //    {
+  //      e.frontBlocked = true;
+  //    }
+  //    else
+  //    {
+  //      e.frontBlocked = false;
+  //    }
+  //  }
+  //}
 }

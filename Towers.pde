@@ -42,5 +42,10 @@ class Towers
     }
   }
   
+  void stopEnemies()
+  {
+    
+  }
+  
  
 }
