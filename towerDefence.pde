@@ -1,4 +1,5 @@
 ArrayList<Towers> towers = new ArrayList<Towers>();
+ArrayList<Enemies> enemies = new ArrayList<Enemies>();
 int boxSize = 75;
 
 void setup()
@@ -10,12 +11,33 @@ void draw()
 {
   drawBackground();
   handleTowers();
-  towers.add(new Towers(mouseX,mouseY));
+  handleEnemies();
+}
+void keyPressed()
+{
+  if(key == 'e')
+  {
+    enemies.add(new Enemies(mouseX,mouseY,1));
+  }
 }
 void mousePressed()
 {
-  towers.add(new Towers(mouseX,mouseY));
-  
+  if((mouseButton == RIGHT))//spawn new tower
+    towers.add(new Towers(mouseX,mouseY,1));
+  for(Towers t: towers)
+  {
+    if(dist(mouseX,mouseY,t.xPos,t.yPos) < t.size/2 && (mouseButton == LEFT))//grabbing towers
+    {
+      t.grabbed = true;
+    }
+  }
+}
+void mouseReleased()
+{
+  for(Towers t: towers)//dropping towers
+  {
+    t.grabbed = false;
+  }
 }
 void drawBackground()
 {
@@ -34,5 +56,13 @@ void handleTowers()
   {
     t.drawTowers();
     t.snapToGrid();
+  }
+}
+void handleEnemies()
+{
+  for(Enemies e: enemies)
+  {
+    e.drawEnemies();
+    e.moveEnemies();
   }
 }
