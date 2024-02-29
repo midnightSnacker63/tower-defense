@@ -1,4 +1,5 @@
 ArrayList<Towers> towers = new ArrayList<Towers>();
+ArrayList<TowerShots> tShots = new ArrayList<TowerShots>();
 ArrayList<Enemies> enemies = new ArrayList<Enemies>();
 
 int boxSize = 100;
@@ -15,6 +16,7 @@ void draw()
   drawBackground();
   handleTowers();
   handleEnemies();
+  handleTowerShot();
 }
 void keyPressed()
 {
@@ -29,11 +31,12 @@ void mousePressed()
     towers.add(new Towers(mouseX,mouseY,0));
   for(Towers t: towers)
   {
-    if(dist(mouseX,mouseY,t.xPos,t.yPos) < t.size/2 && (mouseButton == LEFT) && mouseOnGrid())//grabbing towers
+    if(dist(mouseX,mouseY,t.xPos,t.yPos) < t.size/2 && (mouseButton == LEFT) )//&& mouseOnGrid())//grabbing towers
     {
       t.grabbed = true;
     }
   }
+  
 }
 void mouseReleased()
 {
@@ -59,6 +62,7 @@ void handleTowers()
   {
     t.drawTowers();
     t.snapToGrid();
+    t.attack();
   }
   for(int i = 0; i < towers.size(); i++)
   {
@@ -86,6 +90,15 @@ void handleEnemies()
   }
   
   
+}
+
+void handleTowerShot()
+{
+ for(TowerShots t: tShots)
+ {
+   t.moveShot();
+   t.drawShot();
+ }
 }
 
 boolean mouseOnGrid()
