@@ -63,7 +63,7 @@ class Enemies
   boolean frontBlocked()//returns true if something is in front of an enemy
   {
     for( int i = 0; i < towers.size(); i++ )
-      if( dist( xPos,yPos, towers.get(i).xPos,towers.get(i).yPos ) < (size+towers.get(i).size)/2 )//&& !frontBlocked)
+      if( dist( xPos,yPos, towers.get(i).xPos,towers.get(i).yPos ) < (size+towers.get(i).size)/2 )
         return true;
     return false;
   }

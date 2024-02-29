@@ -12,7 +12,6 @@ void setup()
 }
 void draw()
 {
-  background(0);
   drawBackground();
   handleTowers();
   handleEnemies();
@@ -30,7 +29,7 @@ void mousePressed()
     towers.add(new Towers(mouseX,mouseY,0));
   for(Towers t: towers)
   {
-    if(dist(mouseX,mouseY,t.xPos,t.yPos) < t.size/2 && (mouseButton == LEFT))//grabbing towers
+    if(dist(mouseX,mouseY,t.xPos,t.yPos) < t.size/2 && (mouseButton == LEFT) && mouseOnGrid())//grabbing towers
     {
       t.grabbed = true;
     }
@@ -85,4 +84,15 @@ void handleEnemies()
       enemies.remove(i);
     }
   }
+  
+  
+}
+
+boolean mouseOnGrid()
+{
+  if(mouseX < width-(boxSize*3) && mouseY < height-(boxSize*1))
+  {
+    return true;
+  }
+  return false;
 }
