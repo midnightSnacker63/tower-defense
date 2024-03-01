@@ -6,8 +6,8 @@ class Enemies
   
   int type;
   int power;
-  int maxHealth = 1;
-  int health = maxHealth;
+  float maxHealth = 10;
+  float health = maxHealth;
   
   boolean active;
   
@@ -58,6 +58,16 @@ class Enemies
       case 0:
         maxHealth = 10;
         return;
+    }
+  }
+  
+  void takeDamage(float amount)
+  {
+    health -= amount;
+    
+    if(health <= 0)
+    {
+      active = false;
     }
   }
   boolean frontBlocked()//returns true if something is in front of an enemy

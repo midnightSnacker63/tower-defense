@@ -7,6 +7,7 @@ class Towers
   int power;
   int maxHealth = 10;
   int health = maxHealth;
+  int cooldown = 1000;
   
   boolean grabbed;
   boolean active;
@@ -46,8 +47,8 @@ class Towers
   
   void attack()
   {
-    if(enemyAhead())
-      tShots.add( new TowerShots(xPos,yPos));
+    if(enemyAhead() )//&& millis() > cooldown)
+      tShots.add( new TowerShots(xPos,random(yPos-15,yPos+15)));
   }
   
   void snapToGrid()

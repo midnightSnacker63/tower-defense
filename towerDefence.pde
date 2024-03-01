@@ -9,6 +9,7 @@ int boxSize = 100;
 void setup()
 {
   size(1200,800);
+  //fullScreen();
   //noStroke();
 }
 void draw()
@@ -47,6 +48,7 @@ void mouseReleased()
 }
 void drawBackground()
 {
+  background(0);
   for(int i = 0; i < width-(boxSize*3); i += boxSize) 
   {
     for(int j = 0; j < height-(boxSize*1); j += boxSize) 
@@ -72,6 +74,7 @@ void handleTowers()
     }
   }
 }
+
 void handleEnemies()
 {
   for(Enemies e: enemies)
@@ -88,8 +91,6 @@ void handleEnemies()
       enemies.remove(i);
     }
   }
-  
-  
 }
 
 void handleTowerShot()
@@ -98,8 +99,18 @@ void handleTowerShot()
  {
    t.moveShot();
    t.drawShot();
+   t.checkForHit();
  }
+ for(int i = 0; i < tShots.size(); i++)
+  {
+    if(!tShots.get(i).active)
+    {
+      tShots.remove(i);
+    }
+  }
 }
+
+
 
 boolean mouseOnGrid()
 {

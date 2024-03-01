@@ -5,7 +5,8 @@ class TowerShots
   
   float size;
   
-  int damage;
+  float damage = .1;
+  int cooldown = 1000;
   
   boolean active;
   public TowerShots( float x, float y )
@@ -14,6 +15,8 @@ class TowerShots
     yPos = y;
     size = 50;
     active = true;
+    for(Towers t:towers)
+      t.cooldown = millis()+cooldown;
   }
   
   void drawShot()
@@ -38,5 +41,17 @@ class TowerShots
     
     xPos += xSpd;
     yPos += ySpd;
+  }
+  
+  void checkForHit()
+  {
+    for( int i = 0; i < enemies.size(); i++ )
+      {
+        if( dist( xPos,yPos, enemies.get(i).xPos,enemies.get(i).yPos ) < (size+enemies.get(i).size)/2  )
+        {
+          enemies.get(i).takeDamage(damage);
+          active = false;
+        }
+      }
   }
 }
