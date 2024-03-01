@@ -25,11 +25,22 @@ void keyPressed()
   {
     enemies.add(new Enemies(mouseX,mouseY,0));
   }
+  if(key == 'E')//wave
+  {
+    for(int i = 0; i < 15; i++)
+      enemies.add(new Enemies(width + random(50,750),random(0,height-boxSize),0));
+  }
+  if(key == 't' && !spaceOccupied())
+  {
+    towers.add(new Towers(mouseX,mouseY,1));
+  }
 }
 void mousePressed()
 {
-  if((mouseButton == RIGHT))//spawn new tower
-    towers.add(new Towers(mouseX,mouseY,0));
+  if((mouseButton == RIGHT) && !spaceOccupied())//spawn new tower
+  {
+    towers.add(new Towers(mouseX,mouseY,1));
+  }
   for(Towers t: towers)
   {
     if(dist(mouseX,mouseY,t.xPos,t.yPos) < t.size/2 && (mouseButton == LEFT) )//&& mouseOnGrid())//grabbing towers
@@ -65,6 +76,7 @@ void handleTowers()
     t.drawTowers();
     t.snapToGrid();
     t.attack();
+    
   }
   for(int i = 0; i < towers.size(); i++)
   {
@@ -73,6 +85,20 @@ void handleTowers()
       towers.remove(i);
     }
   }
+  
+}
+
+boolean spaceOccupied()
+{
+  for(int i = 0; i < towers.size(); i++)
+  {
+    if(dist(mouseX,mouseY,towers.get(i).xPos,towers.get(i).yPos) < (towers.get(i).size/2)+10)
+    {
+      println("there is already a tower there");
+      return true;
+    }
+  }
+  return false;
 }
 
 void handleEnemies()
@@ -81,7 +107,7 @@ void handleEnemies()
   {
     e.drawEnemies();
     e.moveEnemies();
-    
+    e.hitTowers();
   }
   
   for(int i = 0; i < enemies.size(); i++)
@@ -101,7 +127,7 @@ void handleTowerShot()
    t.drawShot();
    t.checkForHit();
  }
- for(int i = 0; i < tShots.size(); i++)
+ for(int i = 0; i < tShots.size(); i++)//removes when not active
   {
     if(!tShots.get(i).active)
     {

@@ -5,18 +5,19 @@ class TowerShots
   
   float size;
   
-  float damage = .1;
+  float damage = 1;
   int cooldown = 1000;
+  int type;
   
   boolean active;
-  public TowerShots( float x, float y )
+  public TowerShots( float x, float y , int t)
   {
     xPos = x;
     yPos = y;
+    type = t;
     size = 50;
     active = true;
-    for(Towers t:towers)
-      t.cooldown = millis()+cooldown;
+    
   }
   
   void drawShot()
