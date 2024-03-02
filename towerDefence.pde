@@ -28,7 +28,7 @@ void keyPressed()
   if(key == 'E')//wave
   {
     for(int i = 0; i < 15; i++)
-      enemies.add(new Enemies(width + random(50,750),random(0,height-boxSize),0));
+      enemies.add(new Enemies(width + random(50,1000),random(0,height-boxSize),0));
   }
   if(key == 't' && !spaceOccupied())
   {

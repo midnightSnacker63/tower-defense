@@ -9,7 +9,7 @@ class Enemies
   int type;
   int damage = 1;
   int timer;
-  int cooldown = 250;
+  int cooldown = 300;
   
   boolean active;
   
@@ -48,6 +48,10 @@ class Enemies
       xSpd = 0;
       
     }
+    if(xPos < -size)
+    {
+      
+    }
     
     xSpd *= 0.97;
     ySpd *= 0.97;
@@ -79,7 +83,7 @@ class Enemies
   void hitTowers()
   {
     for( int i = 0; i < towers.size(); i++ )
-      if( dist( xPos,yPos, towers.get(i).xPos,towers.get(i).yPos ) < (size+towers.get(i).size)/2 && millis() > timer)
+      if( dist( xPos,yPos, towers.get(i).xPos,towers.get(i).yPos ) < ((size+towers.get(i).size)/2) && millis() > timer)
       {
         timer = millis() + cooldown;
         towers.get(i).takeDamage(damage);

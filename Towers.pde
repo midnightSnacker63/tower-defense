@@ -5,7 +5,7 @@ class Towers
   
   int type;
   int power;
-  int maxHealth = 100;
+  int maxHealth = 10;
   int health = maxHealth;
   int timer;
   int cooldown = 1000;
@@ -25,6 +25,7 @@ class Towers
     xPos = round(mouseX / int(size)) * size + size/2;
     yPos = round(mouseY / int(size)) * size + size/2;
     setTraits();
+    health = maxHealth;
   }
   
   void drawTowers()
@@ -78,7 +79,7 @@ class Towers
         return;
       case 1:
         maxHealth = 10;
-        cooldown = 500;
+        cooldown = 300;
         return;
     }
   }
