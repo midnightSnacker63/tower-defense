@@ -1,6 +1,7 @@
 class Towers
 {
   float xPos,yPos;
+  float xSpd,ySpd;
   float size;
   
   int type;
@@ -14,6 +15,8 @@ class Towers
   boolean active;
   boolean attacking;
   boolean canAttack = true;
+  boolean bought = false;
+
   
   public Towers(float x,float y, int t)
   {
@@ -22,8 +25,8 @@ class Towers
     type = t;
     size = boxSize;
     active = true;
-    xPos = round(mouseX / int(size)) * size + size/2;
-    yPos = round(mouseY / int(size)) * size + size/2;
+    //xPos = round(mouseX / int(size)) * size + size/2;
+    //yPos = round(mouseY / int(size)) * size + size/2;
     setTraits();
     health = maxHealth;
   }
@@ -31,7 +34,7 @@ class Towers
   void drawTowers()
   {
     push();
-    if(enemyAhead())
+    if(attacking)
     {
       fill(255,0,0);
     }
@@ -45,32 +48,81 @@ class Towers
     fill(0);
     text(health,xPos,yPos);
     pop();
-    if(health <= 0)
+    if(health <= 0)//kill it if health is 0
     {
       active = false;
     }
     
   }
   
-  void attack()
+  void moveTowers()
   {
-    if(enemyAhead() && canAttack && millis() > timer)
+    if(onGrid() && !grabbed)
     {
-      timer = millis() + cooldown;
-      tShots.add( new TowerShots(xPos,random(yPos-15,yPos+15),0));
+      xPos = round(int(xPos) / int(size)) * size + size/2;
+      yPos = round(int(yPos) / int(size)) * size + size/2;
     }
+    
+    if(onGrid() && !grabbed && !bought)
+    {
+      println("get yo money up");
+      active = false;
+    }
+
+  
+    
+    xSpd *= 0.97;
+    ySpd *= 0.97;
+    
+    xPos += xSpd;
+    yPos += ySpd;
   }
   
-  void snapToGrid()
+  
+  void attack()//method for attacking
   {
-    if( grabbed && !spaceOccupied() )
+    if(enemyAhead() && canAttack && bought && millis() > timer)
+    {
+      timer = millis() + cooldown;
+      attacking = true;
+      tShots.add( new TowerShots(xPos,random(yPos-15,yPos+15),0));
+    }
+    else 
+      attacking = false;
+  }
+  
+  void snapToGrid()//snaps towers to the grid when grabbed
+  {
+    if( grabbed  && !spaceOccupied() )
     {
       xPos = round(mouseX / int(size)) * size + size/2;
       yPos = round(mouseY / int(size)) * size + size/2;
+      
+    }
+    
+  }
+  
+  void returnToBoard()//if you try to drag it off the board it will not let you
+  {
+    if(!onGrid() && bought)
+    {
+      xPos -= 50;
+    }
+    if(yPos > height-(boxSize)-size/2)
+    {
+      yPos -= 50;
+    }
+    if(xPos < 0)
+    {
+      xPos += 50;
+    }
+    if(yPos < 0)
+    {
+      yPos += 50;
     }
   }
   
-  void setTraits()
+  void setTraits()//set traits for towers
   {
     switch(type)
     {
@@ -78,13 +130,13 @@ class Towers
         maxHealth = 10;
         return;
       case 1:
-        maxHealth = 10;
-        cooldown = 300;
+        maxHealth = 25;
+        cooldown = 250;
         return;
     }
   }
   
-  void takeDamage(float amount)
+  void takeDamage(float amount)//allows for towers to take damage
   {
     health -= amount;
     
@@ -94,12 +146,21 @@ class Towers
     }
   }
   
-  boolean enemyAhead()
+  boolean enemyAhead()//returns true if an enemy is up ahead and on the board
   {
     for( int i = 0; i < enemies.size(); i++ )
-      if( enemies.get(i).yPos == yPos && enemies.get(i).xPos >= xPos )
+      if( enemies.get(i).yPos == yPos && enemies.get(i).xPos >= xPos && enemies.get(i).onGrid() )
         return true;
     return false;
   }
   
+  
+  boolean onGrid()//tells you when tower is on the grid
+  {
+    if(xPos < width-(boxSize*3) && yPos < height-(boxSize*1))
+    {
+      return true;
+    }
+    return false;
+  }
 }

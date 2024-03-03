@@ -20,7 +20,7 @@ class TowerShots
     
   }
   
-  void drawShot()
+  void drawShot()//draw shots
   {
     if(active)
     {
@@ -28,9 +28,14 @@ class TowerShots
       circle(xPos,yPos,50);
       pop();
     }
+    if(xPos > width-250)
+    {
+      active = false;
+    }
+    
   }
   
-  void moveShot()
+  void moveShot()//movement
   {
     if(active)
     {
@@ -44,7 +49,7 @@ class TowerShots
     yPos += ySpd;
   }
   
-  void checkForHit()
+  void checkForHit()//allows it to hit enemies
   {
     for( int i = 0; i < enemies.size(); i++ )
       {

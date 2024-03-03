@@ -3,21 +3,38 @@ ArrayList<TowerShots> tShots = new ArrayList<TowerShots>();
 ArrayList<Enemies> enemies = new ArrayList<Enemies>();
 
 int boxSize = 100;
+int life = 100;
+int money = 250;
+
+int enemyCooldown = 5000;
+int enemyTimer = 0;
+
+int difficulty;//as time goes by this will increase
+
+boolean gameStarted;
+
+UI UI;
 
 //boolean mouseOnGrid();
 
 void setup()
 {
   size(1200,800);
+  
+  UI = new UI();
   //fullScreen();
   //noStroke();
+  towers.add( new Towers(width - 225, 180,1));
 }
 void draw()
 {
-  drawBackground();
-  handleTowers();
+  handleBackground();
   handleEnemies();
+  handleTowers();
   handleTowerShot();
+  handleForeground();
+  
+  
 }
 void keyPressed()
 {
@@ -37,13 +54,9 @@ void keyPressed()
 }
 void mousePressed()
 {
-  if((mouseButton == RIGHT) && !spaceOccupied())//spawn new tower
-  {
-    towers.add(new Towers(mouseX,mouseY,1));
-  }
   for(Towers t: towers)
   {
-    if(dist(mouseX,mouseY,t.xPos,t.yPos) < t.size/2 && (mouseButton == LEFT) )//&& mouseOnGrid())//grabbing towers
+    if(dist(mouseX,mouseY,t.xPos,t.yPos) < t.size/2 && (mouseButton == LEFT))//grabbing towers
     {
       t.grabbed = true;
     }
@@ -54,19 +67,15 @@ void mouseReleased()
 {
   for(Towers t: towers)//dropping towers
   {
-    t.grabbed = false;
-  }
-}
-void drawBackground()
-{
-  background(0);
-  for(int i = 0; i < width-(boxSize*3); i += boxSize) 
-  {
-    for(int j = 0; j < height-(boxSize*1); j += boxSize) 
-    { 
-      //fill((j+50)/5);
-      rect(i, j, boxSize, boxSize);  
+    for(int i = 0; i < towers.size(); i++)
+    {
+      if(money >= 50 && !towers.get(i).bought && towers.get(i).grabbed ) //mouseOnGrid())
+      {
+        money -= 50;
+        towers.get(i).bought = true;
+      }
     }
+    t.grabbed = false;
   }
 }
 void handleTowers()
@@ -76,7 +85,8 @@ void handleTowers()
     t.drawTowers();
     t.snapToGrid();
     t.attack();
-    
+    t.moveTowers();
+    t.returnToBoard();
   }
   for(int i = 0; i < towers.size(); i++)
   {
@@ -84,22 +94,26 @@ void handleTowers()
     {
       towers.remove(i);
     }
+    
+    if(!shopStocked())
+    {
+      towers.add( new Towers(width - 225, 180,1));
+    }
   }
   
 }
-
-boolean spaceOccupied()
+void handleBackground()
 {
-  for(int i = 0; i < towers.size(); i++)
-  {
-    if(dist(mouseX,mouseY,towers.get(i).xPos,towers.get(i).yPos) < (towers.get(i).size/2)+10)
-    {
-      println("there is already a tower there");
-      return true;
-    }
-  }
-  return false;
+  UI.drawBackground();
+  
 }
+
+void handleForeground()
+{
+  UI.drawInterface();
+  UI.drawInfo();
+}
+
 
 void handleEnemies()
 {
@@ -108,6 +122,17 @@ void handleEnemies()
     e.drawEnemies();
     e.moveEnemies();
     e.hitTowers();
+  }
+  
+  if(millis() > enemyTimer && life > 0)//enemy spawn timer
+  {
+    enemies.add(new Enemies(width + random(50,100),random(0,height-boxSize),0));
+    enemyTimer = millis() + enemyCooldown;
+    if(enemyCooldown > 100)
+    {
+      enemyCooldown -= enemyCooldown / 50;
+      println(enemyCooldown);
+    }
   }
   
   for(int i = 0; i < enemies.size(); i++)
@@ -143,6 +168,31 @@ boolean mouseOnGrid()
   if(mouseX < width-(boxSize*3) && mouseY < height-(boxSize*1))
   {
     return true;
+  }
+  return false;
+}
+
+boolean spaceOccupied()
+{
+  for(int i = 0; i < towers.size(); i++)
+  {
+    if(dist(mouseX,mouseY,towers.get(i).xPos,towers.get(i).yPos) < (towers.get(i).size/2)+10)
+    {
+      println("there is already a tower there");
+      return true;
+    }
+  }
+  return false;
+}
+
+boolean shopStocked()
+{
+  for(int i = 0; i < towers.size(); i++)
+  {
+    if(towers.get(i).xPos == width-225 && !towers.get(i).bought)
+    {
+      return true;
+    }  
   }
   return false;
 }
