@@ -41,7 +41,7 @@ class Enemies
   {
     if(!frontBlocked())//only move if their front isnt blocked
     {
-      xSpd -= 0.15;
+      xSpd -= 0.12;
     }
     else
     {

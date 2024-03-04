@@ -63,14 +63,11 @@ class Towers
       yPos = round(int(yPos) / int(size)) * size + size/2;
     }
     
-    if(onGrid() && !grabbed && !bought)
+    if(onGrid() && !grabbed && !bought)//removes tower if you cant afford it
     {
       println("get yo money up");
       active = false;
     }
-
-  
-    
     xSpd *= 0.97;
     ySpd *= 0.97;
     
@@ -131,7 +128,7 @@ class Towers
         return;
       case 1:
         maxHealth = 25;
-        cooldown = 250;
+        cooldown = 200;
         return;
     }
   }

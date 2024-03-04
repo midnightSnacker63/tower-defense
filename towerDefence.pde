@@ -4,7 +4,7 @@ ArrayList<Enemies> enemies = new ArrayList<Enemies>();
 
 int boxSize = 100;
 int life = 100;
-int money = 250;
+int money = 300;
 
 int enemyCooldown = 5000;
 int enemyTimer = 0;
@@ -33,8 +33,6 @@ void draw()
   handleTowers();
   handleTowerShot();
   handleForeground();
-  
-  
 }
 void keyPressed()
 {
@@ -44,8 +42,7 @@ void keyPressed()
   }
   if(key == 'E')//wave
   {
-    for(int i = 0; i < 15; i++)
-      enemies.add(new Enemies(width + random(50,1000),random(0,height-boxSize),0));
+    sendWave(10);
   }
   if(key == 't' && !spaceOccupied())
   {
@@ -128,20 +125,36 @@ void handleEnemies()
   {
     enemies.add(new Enemies(width + random(50,100),random(0,height-boxSize),0));
     enemyTimer = millis() + enemyCooldown;
-    if(enemyCooldown > 100)
+    if(enemyCooldown > 100)//shorten timer making enemies spawn faster
     {
       enemyCooldown -= enemyCooldown / 50;
       println(enemyCooldown);
+      
     }
+    if(millis() % 1000 < 100)
+    {
+      println("INCOMING WAVE");
+      sendWave(millis()/3000);
+    }
+  }
+  if(life <= 0)//lose screen
+  {
+    enemies.clear();
+    push();
+    fill(0);
+    text("YOU LOSE",width/2,height/2);
+    pop();
   }
   
   for(int i = 0; i < enemies.size(); i++)
   {
-    if(!enemies.get(i).active)
+    if(!enemies.get(i).active)//remove enemies if they are not active
     {
       enemies.remove(i);
     }
   }
+  
+  
 }
 
 void handleTowerShot()
@@ -161,7 +174,11 @@ void handleTowerShot()
   }
 }
 
-
+void sendWave( int amount )
+{
+  for(int i = 0; i < amount; i++)
+    enemies.add(new Enemies(width + random(50,1000),random(0,height-boxSize),0));
+}
 
 boolean mouseOnGrid()
 {
@@ -178,7 +195,7 @@ boolean spaceOccupied()
   {
     if(dist(mouseX,mouseY,towers.get(i).xPos,towers.get(i).yPos) < (towers.get(i).size/2)+10)
     {
-      println("there is already a tower there");
+      //println("there is already a tower there");
       return true;
     }
   }
@@ -189,10 +206,15 @@ boolean shopStocked()
 {
   for(int i = 0; i < towers.size(); i++)
   {
-    if(towers.get(i).xPos == width-225 && !towers.get(i).bought)
+    for(int j = 0; j < 8; j++)
     {
-      return true;
-    }  
+      int x = (width-225)+(j%2*150);
+      //int y = 180+(150*(j/2));
+      if(towers.get(i).xPos == x && !towers.get(i).bought)
+      {
+        return true;
+      }    
+    }
   }
   return false;
 }
