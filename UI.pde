@@ -46,9 +46,9 @@ class UI
     }
     
     push();
-    circle(width-225,180,100);
+    //circle(width-225,180,100);
     fill(0);
-    text("25",width-225,180);
+    //text("25",width-225,180);
     pop();
   }
 }

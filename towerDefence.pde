@@ -9,9 +9,14 @@ int money = 300;
 int enemyCooldown = 5000;
 int enemyTimer = 0;
 
+int waveCooldown = 30000;
+int waveTimer = 000;
+
 int difficulty;//as time goes by this will increase
 
 boolean gameStarted;
+
+boolean [] stocked = {false,false,false,false,false,false,false,false};
 
 UI UI;
 
@@ -25,14 +30,16 @@ void setup()
   //fullScreen();
   //noStroke();
   towers.add( new Towers(width - 225, 180,1));
+  towers.add( new Towers(width - 75, 180,1));
 }
 void draw()
 {
   handleBackground();
   handleEnemies();
-  handleTowers();
+  
   handleTowerShot();
   handleForeground();
+  handleTowers();
 }
 void keyPressed()
 {
@@ -70,6 +77,7 @@ void mouseReleased()
       {
         money -= 50;
         towers.get(i).bought = true;
+        
       }
     }
     t.grabbed = false;
@@ -91,13 +99,17 @@ void handleTowers()
     {
       towers.remove(i);
     }
-    
-    if(!shopStocked())
+    for(int j = 0; j < 8; j++)
     {
-      towers.add( new Towers(width - 225, 180,1));
+      if(!shopStocked())
+      {
+        int x = (width-225)+(j%2*150);
+        int y = 180+(150*(j/2));
+        towers.add( new Towers(x, y, 1));
+        stocked[j] = true;
+      }
     }
   }
-  
 }
 void handleBackground()
 {
@@ -131,10 +143,11 @@ void handleEnemies()
       println(enemyCooldown);
       
     }
-    if(millis() % 1000 < 100)
+    if(millis() > waveTimer)
     {
+      waveTimer += waveCooldown;
       println("INCOMING WAVE");
-      sendWave(millis()/3000);
+      sendWave(millis()/waveCooldown);
     }
   }
   if(life <= 0)//lose screen
@@ -174,7 +187,7 @@ void handleTowerShot()
   }
 }
 
-void sendWave( int amount )
+void sendWave( int amount )//sends a wave of enemies based on the given number
 {
   for(int i = 0; i < amount; i++)
     enemies.add(new Enemies(width + random(50,1000),random(0,height-boxSize),0));
@@ -202,18 +215,19 @@ boolean spaceOccupied()
   return false;
 }
 
-boolean shopStocked()
+boolean shopStocked( )
 {
   for(int i = 0; i < towers.size(); i++)
   {
     for(int j = 0; j < 8; j++)
     {
       int x = (width-225)+(j%2*150);
-      //int y = 180+(150*(j/2));
-      if(towers.get(i).xPos == x && !towers.get(i).bought)
+      int y = 180+(150*(j/2));
+      if(towers.get(i).xPos == x && towers.get(i).yPos == y && !towers.get(i).bought)
       {
+        stocked[j] = true;
         return true;
-      }    
+      }
     }
   }
   return false;

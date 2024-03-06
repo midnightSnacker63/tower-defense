@@ -128,7 +128,7 @@ class Towers
         return;
       case 1:
         maxHealth = 25;
-        cooldown = 200;
+        cooldown = 400;
         return;
     }
   }
