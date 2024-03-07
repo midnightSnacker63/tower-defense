@@ -10,12 +10,14 @@ class Towers
   int health = maxHealth;
   int timer;
   int cooldown = 1000;
+  int price;
   
   boolean grabbed;
   boolean active;
   boolean attacking;
   boolean canAttack = true;
   boolean bought = false;
+  boolean producer;
 
   
   public Towers(float x,float y, int t)
@@ -43,8 +45,7 @@ class Towers
       fill(255);
     }
     stroke(1);
-    
-    circle(xPos,yPos,size);
+    image(towerImage[type],xPos,yPos);
     fill(0);
     text(health,xPos,yPos);
     pop();
@@ -82,7 +83,7 @@ class Towers
     {
       timer = millis() + cooldown;
       attacking = true;
-      tShots.add( new TowerShots(xPos,random(yPos-15,yPos+15),0));
+      tShots.add( new TowerShots(xPos,random(yPos-15,yPos+15),type));
     }
     else 
       attacking = false;
@@ -124,11 +125,19 @@ class Towers
     switch(type)
     {
       case 0:
+        price = 10;
         maxHealth = 10;
+        cooldown = 750;
         return;
       case 1:
+        price = 25;
         maxHealth = 25;
         cooldown = 400;
+        return;
+      case 2:
+        canAttack = false;
+        price = 50;
+        maxHealth = 100;
         return;
     }
   }

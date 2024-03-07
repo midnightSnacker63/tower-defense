@@ -5,6 +5,7 @@ class Enemies
   float size;
   float maxHealth = 10;
   float health = maxHealth;
+  float speed = 1;
   
   int type;
   int damage = 1;
@@ -21,13 +22,15 @@ class Enemies
     size = boxSize;
     active = true;
     yPos = round(int(y) / int(size)) * size + size/2;//snap to the y axis
+    setTraits();
+    health = maxHealth;
   }
   
   void drawEnemies()//drawing
   {
     push();
     fill(200,10,10);
-    circle(xPos,yPos,size);
+    image(enemyImage[type],xPos,yPos);
     fill(0);
     text(int(health),xPos,yPos);
     pop();
@@ -41,7 +44,7 @@ class Enemies
   {
     if(!frontBlocked())//only move if their front isnt blocked
     {
-      xSpd -= 0.06;
+      xSpd -= 0.06 * speed;
     }
     else
     {
@@ -74,17 +77,30 @@ class Enemies
       case 0:
         maxHealth = 10;
         return;
+      case 1:
+        maxHealth = 15;
+        speed = 1.25;
+        return;
+      case 2:
+        maxHealth = 50;
+        speed = 0.75;
+        return;
+      case 3:
+        maxHealth = 25;
+        return;
+        
     }
   }
   
   void takeDamage(float amount)//allows enemies to take damage
   {
-    health -= amount;
+    if(onGrid())//only take damage if on the board
+      health -= amount;
     
     if(health <= 0)
     {
       active = false;
-      money += 10;
+      money += maxHealth;
     }
   }
   

@@ -25,6 +25,8 @@ class UI
     textSize(25);
     text(life,(width-boxSize*3)+30,40);
     text(money,(width-boxSize*3)+30,80);
+    text("current wave: "+ wave, 25, height - 70 );
+    text("current difficulty: "+ difficulty, 25, height - 45 );
     pop();
   }
   
@@ -42,13 +44,10 @@ class UI
       push();
       rectMode(CENTER);
       rect(x,y,120,120,25);
+      image(towerImage[i],x,y);
       pop();
     }
     
-    push();
-    //circle(width-225,180,100);
-    fill(0);
-    //text("25",width-225,180);
-    pop();
+    
   }
 }

@@ -4,19 +4,22 @@ ArrayList<Enemies> enemies = new ArrayList<Enemies>();
 
 int boxSize = 100;
 int life = 100;
-int money = 300;
+int money = 100;
 
 int enemyCooldown = 5000;
 int enemyTimer = 0;
 
 int waveCooldown = 30000;
-int waveTimer = 000;
+int waveTimer = 0;
 
-int difficulty;//as time goes by this will increase
+int wave;
+
+int difficulty = 1;//as time goes by this will increase
 
 boolean gameStarted;
 
-boolean [] stocked = {false,false,false,false,false,false,false,false};
+PImage [] towerImage = new PImage[8];
+PImage [] enemyImage = new PImage[8];
 
 UI UI;
 
@@ -25,21 +28,52 @@ UI UI;
 void setup()
 {
   size(1200,800);
-  
+  imageMode(CENTER);
   UI = new UI();
   //fullScreen();
   //noStroke();
-  towers.add( new Towers(width - 225, 180,1));
-  towers.add( new Towers(width - 75, 180,1));
+  towers.add( new Towers(width - 225, 180,0));
+  towerImage[0] = loadImage("PurpleDragonRight.png");//basic
+  towerImage[0].resize(boxSize, 0);
+  towerImage[1] = loadImage("cosmoPixel.png");
+  towerImage[1].resize(boxSize, 0);
+  towerImage[2] = loadImage("cobbleColor.png");//wall
+  towerImage[2].resize(boxSize, 0);
+  towerImage[3] = loadImage("dummy.png");
+  towerImage[3].resize(boxSize, 0);
+  towerImage[4] = loadImage("dummy.png");
+  towerImage[4].resize(boxSize, 0);
+  towerImage[5] = loadImage("dummy.png");
+  towerImage[5].resize(boxSize, 0);
+  towerImage[6] = loadImage("dummy.png");
+  towerImage[6].resize(boxSize, 0);
+  towerImage[7] = loadImage("dummy.png");
+  towerImage[7].resize(boxSize, 0);
+  
+  enemyImage[0] = loadImage("keese.png");//basic
+  enemyImage[0].resize(boxSize, 0);
+  enemyImage[1] = loadImage("ganon.png");
+  enemyImage[1].resize(boxSize, 0);
+  enemyImage[2] = loadImage("dekuScrub.png");//wall
+  enemyImage[2].resize(boxSize, 0);
+  enemyImage[3] = loadImage("dummy.png");
+  enemyImage[3].resize(boxSize, 0);
+  enemyImage[4] = loadImage("dummy.png");
+  enemyImage[4].resize(boxSize, 0);
+  enemyImage[5] = loadImage("dummy.png");
+  enemyImage[5].resize(boxSize, 0);
+  enemyImage[6] = loadImage("dummy.png");
+  enemyImage[6].resize(boxSize, 0);
+  enemyImage[7] = loadImage("dummy.png");
+  enemyImage[7].resize(boxSize, 0);
 }
 void draw()
 {
   handleBackground();
   handleEnemies();
-  
+  handleTowers();
   handleTowerShot();
   handleForeground();
-  handleTowers();
 }
 void keyPressed()
 {
@@ -54,6 +88,10 @@ void keyPressed()
   if(key == 't' && !spaceOccupied())
   {
     towers.add(new Towers(mouseX,mouseY,1));
+  }
+  if(key == 'M')
+  {
+    money += 250;
   }
 }
 void mousePressed()
@@ -73,11 +111,10 @@ void mouseReleased()
   {
     for(int i = 0; i < towers.size(); i++)
     {
-      if(money >= 50 && !towers.get(i).bought && towers.get(i).grabbed ) //mouseOnGrid())
+      if(money >= towers.get(i).price && !towers.get(i).bought && towers.get(i).grabbed && mouseOnGrid())//buys towers
       {
-        money -= 50;
+        money -= towers.get(i).price;
         towers.get(i).bought = true;
-        
       }
     }
     t.grabbed = false;
@@ -101,12 +138,11 @@ void handleTowers()
     }
     for(int j = 0; j < 8; j++)
     {
-      if(!shopStocked())
+      if(!shopStocked(j))
       {
         int x = (width-225)+(j%2*150);
         int y = 180+(150*(j/2));
-        towers.add( new Towers(x, y, 1));
-        stocked[j] = true;
+        towers.add( new Towers(x, y, j));
       }
     }
   }
@@ -135,20 +171,27 @@ void handleEnemies()
   
   if(millis() > enemyTimer && life > 0)//enemy spawn timer
   {
-    enemies.add(new Enemies(width + random(50,100),random(0,height-boxSize),0));
+    enemies.add(new Enemies(width + random(50,100),random(0,height-boxSize),int(random(0,difficulty))));
     enemyTimer = millis() + enemyCooldown;
-    if(enemyCooldown > 100)//shorten timer making enemies spawn faster
+    if(enemyCooldown > 500)//shorten timer making enemies spawn faster
     {
       enemyCooldown -= enemyCooldown / 50;
       println(enemyCooldown);
-      
     }
-    if(millis() > waveTimer)
+    else if(enemyCooldown <= 500 && difficulty < 8)
     {
-      waveTimer += waveCooldown;
-      println("INCOMING WAVE");
-      sendWave(millis()/waveCooldown);
+      println("increasing difficulty");
+      enemyCooldown = 5000;
+      difficulty += 1;
     }
+    
+  }
+  if(millis() > waveTimer)
+  {
+    waveTimer += waveCooldown;
+    println("INCOMING WAVE " + millis()/waveCooldown);
+    sendWave(millis()/waveCooldown);
+    wave ++;
   }
   if(life <= 0)//lose screen
   {
@@ -166,8 +209,6 @@ void handleEnemies()
       enemies.remove(i);
     }
   }
-  
-  
 }
 
 void handleTowerShot()
@@ -190,7 +231,7 @@ void handleTowerShot()
 void sendWave( int amount )//sends a wave of enemies based on the given number
 {
   for(int i = 0; i < amount; i++)
-    enemies.add(new Enemies(width + random(50,1000),random(0,height-boxSize),0));
+    enemies.add(new Enemies(width + random(50,750),random(0,height-boxSize),int(random(0,difficulty))));
 }
 
 boolean mouseOnGrid()
@@ -215,20 +256,17 @@ boolean spaceOccupied()
   return false;
 }
 
-boolean shopStocked( )
+boolean shopStocked( int x )
 {
   for(int i = 0; i < towers.size(); i++)
   {
-    for(int j = 0; j < 8; j++)
-    {
-      int x = (width-225)+(j%2*150);
-      int y = 180+(150*(j/2));
-      if(towers.get(i).xPos == x && towers.get(i).yPos == y && !towers.get(i).bought)
+      int X = (width-225)+(x%2*150);
+      int Y = 180+(150*(x/2));
+      if(towers.get(i).xPos == X && towers.get(i).yPos == Y && !towers.get(i).bought)
       {
-        stocked[j] = true;
+        x++;
         return true;
       }
-    }
   }
   return false;
 }
