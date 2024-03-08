@@ -81,9 +81,11 @@ class Enemies
         maxHealth = 15;
         speed = 1.25;
         return;
-      case 2:
+      case 2://brute
         maxHealth = 50;
         speed = 0.75;
+        cooldown = 2500;
+        damage = 10;
         return;
       case 3:
         maxHealth = 25;

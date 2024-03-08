@@ -6,13 +6,13 @@ int boxSize = 100;
 int life = 100;
 int money = 100;
 
-int enemyCooldown = 5000;
+int enemyCooldown = 5000;//how long between enemies 
 int enemyTimer = 0;
 
-int waveCooldown = 30000;
+int waveCooldown = 30000;//how long between waves in milliseconds
 int waveTimer = 0;
 
-int wave;
+int wave;//how many waves have passed
 
 int difficulty = 1;//as time goes by this will increase
 
@@ -20,6 +20,8 @@ boolean gameStarted;
 
 PImage [] towerImage = new PImage[8];
 PImage [] enemyImage = new PImage[8];
+
+PImage floorTile;
 
 UI UI;
 
@@ -66,6 +68,9 @@ void setup()
   enemyImage[6].resize(boxSize, 0);
   enemyImage[7] = loadImage("dummy.png");
   enemyImage[7].resize(boxSize, 0);
+  
+  floorTile = loadImage("woodTileOutline.png");
+  floorTile.resize(boxSize,0);
 }
 void draw()
 {

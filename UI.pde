@@ -13,7 +13,11 @@ class UI
       for(int j = 0; j < height-(boxSize*1); j += boxSize) 
       { 
         //fill((j+50)/5);
-        rect(i, j, boxSize, boxSize);  
+        push();
+        imageMode(CORNER);
+        image(floorTile,i,j);
+        //rect(i, j, boxSize, boxSize);  
+        pop();
       }
     }
   }
