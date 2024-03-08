@@ -11,6 +11,8 @@ class Towers
   int timer;
   int cooldown = 1000;
   int price;
+  int produceTimer;
+  int produceCooldown = 2500;
   
   boolean grabbed;
   boolean active;
@@ -124,21 +126,38 @@ class Towers
   {
     switch(type)
     {
-      case 0:
+      case 0://basic little thing
         price = 10;
         maxHealth = 10;
         cooldown = 750;
         return;
-      case 1:
+      case 1://basic normal thing
         price = 25;
         maxHealth = 25;
-        cooldown = 400;
+        cooldown = 500;
         return;
-      case 2:
+      case 2://wall (does nothing but has a bunch of health)
         canAttack = false;
         price = 50;
         maxHealth = 100;
         return;
+      case 3://cannon (slow with high damage)
+        cooldown = 3000;
+        maxHealth = 50;
+        price = 100;
+        return;
+      case 4://fast (fast with low damage)
+        cooldown = 250;
+        maxHealth = 15;
+        price = 50;
+        return;
+      case 5://producer (makes money)
+        cooldown = 3000;
+        maxHealth = 10;
+        price = 50;
+        canAttack = false;
+        return;
+        
     }
   }
   

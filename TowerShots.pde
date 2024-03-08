@@ -3,6 +3,8 @@ class TowerShots
   float xPos,yPos;
   float xSpd,ySpd;
   
+  float speed = 1;//speed multiplier
+  
   float size;
   
   float damage = 1;
@@ -17,7 +19,7 @@ class TowerShots
     type = t;
     size = 50;
     active = true;
-    
+    setTraits();
   }
   
   void drawShot()//draw shots
@@ -39,7 +41,7 @@ class TowerShots
   {
     if(active)
     {
-      xSpd += 0.5;
+      xSpd += 0.5 * speed;
     }
     
     xSpd *= 0.95;
@@ -48,7 +50,33 @@ class TowerShots
     xPos += xSpd;
     yPos += ySpd;
   }
-  
+  void setTraits()//set traits for towers
+  {
+    switch(type)
+    {
+      case 0:
+        damage = 1;
+        return;
+      case 1:
+        damage = 1;
+        speed = 1.25;
+        return;
+      case 2:
+        return;
+      case 3:
+        damage = 10;
+        speed = 0.7;
+        return;
+      case 4:
+        damage = .5;
+        speed = 0.7;
+        return;
+      case 5:
+        damage = .10;
+        speed = 1.5;
+        return;
+    }
+  }
   void checkForHit()//allows it to hit enemies
   {
     for( int i = 0; i < enemies.size(); i++ )

@@ -31,6 +31,8 @@ class UI
     text(money,(width-boxSize*3)+30,80);
     text("current wave: "+ wave, 25, height - 70 );
     text("current difficulty: "+ difficulty, 25, height - 45 );
+    fill(255,0,0);
+    rect(25,height - 30,(waveTimer - millis())/100,20);
     pop();
   }
   

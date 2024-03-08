@@ -20,6 +20,7 @@ boolean gameStarted;
 
 PImage [] towerImage = new PImage[8];
 PImage [] enemyImage = new PImage[8];
+PImage [] shotImage = new PImage[8];
 
 PImage floorTile;
 
@@ -41,11 +42,11 @@ void setup()
   towerImage[1].resize(boxSize, 0);
   towerImage[2] = loadImage("cobbleColor.png");//wall
   towerImage[2].resize(boxSize, 0);
-  towerImage[3] = loadImage("dummy.png");
+  towerImage[3] = loadImage("oldMan.png");
   towerImage[3].resize(boxSize, 0);
-  towerImage[4] = loadImage("dummy.png");
+  towerImage[4] = loadImage("blueFish.png");
   towerImage[4].resize(boxSize, 0);
-  towerImage[5] = loadImage("dummy.png");
+  towerImage[5] = loadImage("yellowFishRight.png");
   towerImage[5].resize(boxSize, 0);
   towerImage[6] = loadImage("dummy.png");
   towerImage[6].resize(boxSize, 0);
@@ -178,12 +179,12 @@ void handleEnemies()
   {
     enemies.add(new Enemies(width + random(50,100),random(0,height-boxSize),int(random(0,difficulty))));
     enemyTimer = millis() + enemyCooldown;
-    if(enemyCooldown > 500)//shorten timer making enemies spawn faster
+    if(enemyCooldown > 1000)//shorten timer making enemies spawn faster
     {
       enemyCooldown -= enemyCooldown / 50;
       println(enemyCooldown);
     }
-    else if(enemyCooldown <= 500 && difficulty < 8)
+    else if(enemyCooldown <= 1000 && difficulty < 8)
     {
       println("increasing difficulty");
       enemyCooldown = 5000;
@@ -202,7 +203,9 @@ void handleEnemies()
   {
     enemies.clear();
     push();
-    fill(0);
+    fill(255);
+    textSize(25);
+    textAlign(CENTER);
     text("YOU LOSE",width/2,height/2);
     pop();
   }
