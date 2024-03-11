@@ -3,16 +3,18 @@ class Towers
   float xPos,yPos;
   float xSpd,ySpd;
   float size;
+  float maxHealth = 10;
+  float health = maxHealth;
   
   int type;
   int power;
-  int maxHealth = 10;
-  int health = maxHealth;
+  
   int timer;
   int cooldown = 1000;
   int price;
   int produceTimer;
   int produceCooldown = 2500;
+  int regenTimer;
   
   boolean grabbed;
   boolean active;
@@ -20,6 +22,7 @@ class Towers
   boolean canAttack = true;
   boolean bought = false;
   boolean producer;
+  boolean regen;
 
   
   public Towers(float x,float y, int t)
@@ -49,7 +52,7 @@ class Towers
     stroke(1);
     image(towerImage[type],xPos,yPos);
     fill(0);
-    text(health,xPos,yPos);
+    text(int(health),xPos,yPos);
     pop();
     if(health <= 0)//kill it if health is 0
     {
@@ -89,6 +92,15 @@ class Towers
     }
     else 
       attacking = false;
+  }
+  
+  void produce()
+  {
+    if(producer && millis() > produceTimer && bought)
+    {
+      money += 5;
+      produceTimer += produceCooldown;
+    }
   }
   
   void snapToGrid()//snaps towers to the grid when grabbed
@@ -156,6 +168,19 @@ class Towers
         maxHealth = 10;
         price = 50;
         canAttack = false;
+        producer = true;
+        return;
+      case 6://regen walls (less health than normal walls but regen health)
+        cooldown = 2000;
+        maxHealth = 50;
+        price = 50;
+        canAttack = false;
+        regen = true;
+        return;
+      case 7://not made yet
+        cooldown = 300;
+        maxHealth = 10;
+        price = 50;
         return;
         
     }
@@ -168,6 +193,19 @@ class Towers
     if(health <= 0)
     {
       active = false;
+    }
+  }
+  
+  void regenHealth()
+  {
+    if(regen && health < maxHealth && millis() > timer)
+    {
+      timer += cooldown;
+      health += 0.25;
+    }
+    else if(regen && health >= maxHealth)
+    {
+      timer = millis() + cooldown;
     }
   }
   

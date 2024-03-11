@@ -48,7 +48,7 @@ void setup()
   towerImage[4].resize(boxSize, 0);
   towerImage[5] = loadImage("yellowFishRight.png");
   towerImage[5].resize(boxSize, 0);
-  towerImage[6] = loadImage("dummy.png");
+  towerImage[6] = loadImage("heartContainer.png");
   towerImage[6].resize(boxSize, 0);
   towerImage[7] = loadImage("dummy.png");
   towerImage[7].resize(boxSize, 0);
@@ -104,7 +104,7 @@ void mousePressed()
 {
   for(Towers t: towers)
   {
-    if(dist(mouseX,mouseY,t.xPos,t.yPos) < t.size/2 && (mouseButton == LEFT))//grabbing towers
+    if(dist(mouseX,mouseY,t.xPos,t.yPos) < (t.size/2) && (mouseButton == LEFT))//grabbing towers
     {
       t.grabbed = true;
     }
@@ -120,6 +120,7 @@ void mouseReleased()
       if(money >= towers.get(i).price && !towers.get(i).bought && towers.get(i).grabbed && mouseOnGrid())//buys towers
       {
         money -= towers.get(i).price;
+        towers.get(i).produceTimer = millis() + towers.get(i).produceCooldown;
         towers.get(i).bought = true;
       }
     }
@@ -135,6 +136,8 @@ void handleTowers()
     t.attack();
     t.moveTowers();
     t.returnToBoard();
+    t.produce();
+    t.regenHealth();
   }
   for(int i = 0; i < towers.size(); i++)
   {
@@ -156,7 +159,6 @@ void handleTowers()
 void handleBackground()
 {
   UI.drawBackground();
-  
 }
 
 void handleForeground()
@@ -164,8 +166,6 @@ void handleForeground()
   UI.drawInterface();
   UI.drawInfo();
 }
-
-
 void handleEnemies()
 {
   for(Enemies e: enemies)
@@ -255,7 +255,7 @@ boolean spaceOccupied()
 {
   for(int i = 0; i < towers.size(); i++)
   {
-    if(dist(mouseX,mouseY,towers.get(i).xPos,towers.get(i).yPos) < (towers.get(i).size/2)+10)
+    if(dist(mouseX,mouseY,towers.get(i).xPos,towers.get(i).yPos) < (towers.get(i).size/2) + 25)
     {
       //println("there is already a tower there");
       return true;

@@ -44,7 +44,7 @@ class Enemies
   {
     if(!frontBlocked())//only move if their front isnt blocked
     {
-      xSpd -= 0.06 * speed;
+      xSpd -= 0.05 * speed;
     }
     else
     {
@@ -83,8 +83,8 @@ class Enemies
         return;
       case 2://brute
         maxHealth = 50;
-        speed = 0.5;
-        cooldown = 2500;
+        speed = 0.45;
+        cooldown = 2750;
         damage = 10;
         return;
       case 3:
@@ -102,7 +102,7 @@ class Enemies
     if(health <= 0)
     {
       active = false;
-      money += maxHealth;
+      money += maxHealth/2;
     }
   }
   
