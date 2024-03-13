@@ -13,7 +13,7 @@ class Towers
   int cooldown = 1000;
   int price;
   int produceTimer;
-  int produceCooldown = 2500;
+  int produceCooldown = 4000;
   int regenTimer;
   
   boolean grabbed;
