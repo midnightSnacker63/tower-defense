@@ -6,6 +6,7 @@ class Towers
   float maxHealth = 10;
   float health = maxHealth;
   
+  
   int type;
   int power;
   
@@ -159,7 +160,7 @@ class Towers
         price = 100;
         return;
       case 4://fast (fast with low damage)
-        cooldown = 625;
+        cooldown = 500;
         maxHealth = 15;
         price = 50;
         return;
@@ -201,7 +202,7 @@ class Towers
     if(regen && health < maxHealth && millis() > timer)
     {
       timer += cooldown;
-      health += 0.25;
+      health += 0.5;
     }
     else if(regen && health >= maxHealth)
     {

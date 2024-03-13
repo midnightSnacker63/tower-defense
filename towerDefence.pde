@@ -6,10 +6,10 @@ int boxSize = 100;
 int life = 100;
 int money = 100;
 
-int enemyCooldown = 7500;//how long between enemies 
+int enemyCooldown = 7000;//how long between enemies 
 int enemyTimer = enemyCooldown;
 
-int waveCooldown = 30000;//how long between waves in milliseconds
+int waveCooldown = 60000;//how long between waves in milliseconds
 int waveTimer = 0;
 
 int wave;//how many waves have passed
@@ -203,13 +203,13 @@ void handleEnemies()
     enemyTimer = millis() + enemyCooldown;
     if(enemyCooldown > 1000)//shorten timer making enemies spawn faster
     {
-      enemyCooldown -= enemyCooldown / 50;
+      enemyCooldown -= enemyCooldown / 45;
       println(enemyCooldown);
     }
     else if(enemyCooldown <= 1000 && difficulty < 8)
     {
       println("increasing difficulty");
-      enemyCooldown = 7500;
+      enemyCooldown = 7000;
       difficulty += 1;
     }
     

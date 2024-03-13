@@ -87,16 +87,19 @@ class Enemies
         cooldown = 3500;
         damage = 10;
         return;
-      case 3:
-        maxHealth = 25;
+      case 3://fast with little health
+        maxHealth = 5;
+        speed = 3;
+        cooldown = 500;
         return;
         
     }
   }
   
-  void takeDamage(float amount)//allows enemies to take damage
+  void takeDamage(float amount, float knockback)//allows enemies to take damage
   {
     health -= amount;
+    xSpd += knockback;
     
     if(health <= 0)
     {

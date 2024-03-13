@@ -10,7 +10,10 @@ class TowerShots
   float angle;
   float rotateSpeed;
   
+  float knockback;
+  
   float damage = 1;
+  
   int cooldown = 1000;
   int type;
   
@@ -64,11 +67,13 @@ class TowerShots
       case 0://basic 
         damage = 1;
         rotateSpeed = 0.12;
+        knockback = 0.1;
         return;
       case 1://moderate
         damage = 1;
         speed = 1.25;
         rotateSpeed = 0.05;
+        knockback = 0.25;
         return;
       case 2://wall
         return;
@@ -76,10 +81,12 @@ class TowerShots
         damage = 10;
         speed = 0.7;
         rotateSpeed = 0.05;
+        knockback = 2.5;
         return;
       case 4://fast low damage
         damage = .5;
         speed = 0.7;
+        knockback = 0.1;
         return;
       case 5://producer
         return;
@@ -91,7 +98,7 @@ class TowerShots
       {
         if( dist( xPos,yPos, enemies.get(i).xPos,enemies.get(i).yPos ) < (size+enemies.get(i).size)/2  )
         {
-          enemies.get(i).takeDamage(damage);
+          enemies.get(i).takeDamage(damage, knockback);
           active = false;
         }
       }
