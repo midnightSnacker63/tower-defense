@@ -10,7 +10,7 @@ class Enemies
   int type;
   int damage = 1;
   int timer;
-  int cooldown = 300;
+  int cooldown = 600;
   
   boolean active;
   
@@ -44,7 +44,7 @@ class Enemies
   {
     if(!frontBlocked())//only move if their front isnt blocked
     {
-      xSpd -= 0.05 * speed;
+      xSpd -= 0.02 * speed;
     }
     else
     {
@@ -84,7 +84,7 @@ class Enemies
       case 2://brute
         maxHealth = 50;
         speed = 0.45;
-        cooldown = 2750;
+        cooldown = 3500;
         damage = 10;
         return;
       case 3:
@@ -96,8 +96,7 @@ class Enemies
   
   void takeDamage(float amount)//allows enemies to take damage
   {
-    if(onGrid())//only take damage if on the board
-      health -= amount;
+    health -= amount;
     
     if(health <= 0)
     {

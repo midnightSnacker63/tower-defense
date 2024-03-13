@@ -31,7 +31,7 @@ class UI
     text(money,(width-boxSize*3)+30,80);
     text("current wave: "+ wave, 25, height - 70 );
     text("current difficulty: "+ difficulty, 25, height - 45 );
-     rect(25,height - 30,waveTimer/(wave*100),20);//wave timer bar
+    rect(25,height - 30,waveTimer/(wave*100),20);//wave timer bar
     fill(255,0,0);
     rect(25,height - 30,(waveTimer - millis())/100,20);//wave timer bar
     pop();
@@ -40,7 +40,7 @@ class UI
   void drawInterface()
   {
     push();
-    fill(255);
+    fill(#CE8A0A);
     rect(width-boxSize*3,0,width-boxSize*3,height);
     rect(0,height-boxSize,width-boxSize*3,height-boxSize);
     pop();
@@ -50,6 +50,7 @@ class UI
       int y = 180+(150*(i/2));
       push();
       rectMode(CENTER);
+      fill(#835B10);
       rect(x,y,120,120,25);
       image(towerImage[i],x,y);
       pop();

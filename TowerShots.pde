@@ -7,6 +7,9 @@ class TowerShots
   
   float size;
   
+  float angle;
+  float rotateSpeed;
+  
   float damage = 1;
   int cooldown = 1000;
   int type;
@@ -27,7 +30,11 @@ class TowerShots
     if(active)
     {
       push();
-      circle(xPos,yPos,50);
+      translate(xPos,yPos);
+      rotate(angle);
+      angle+=rotateSpeed;
+      image(towerShotImage[type],0,0);
+      //circle(xPos,yPos,50);
       pop();
     }
     if(xPos > width-250)
@@ -50,30 +57,31 @@ class TowerShots
     xPos += xSpd;
     yPos += ySpd;
   }
-  void setTraits()//set traits for towers
+  void setTraits()//set traits for tower shots(if its empty then they dont shoot)
   {
     switch(type)
     {
-      case 0:
+      case 0://basic 
         damage = 1;
+        rotateSpeed = 0.12;
         return;
-      case 1:
+      case 1://moderate
         damage = 1;
         speed = 1.25;
+        rotateSpeed = 0.05;
         return;
-      case 2:
+      case 2://wall
         return;
-      case 3:
+      case 3://cannon
         damage = 10;
         speed = 0.7;
+        rotateSpeed = 0.05;
         return;
-      case 4:
+      case 4://fast low damage
         damage = .5;
         speed = 0.7;
         return;
-      case 5:
-        damage = .10;
-        speed = 1.5;
+      case 5://producer
         return;
     }
   }

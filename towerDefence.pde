@@ -6,8 +6,8 @@ int boxSize = 100;
 int life = 100;
 int money = 100;
 
-int enemyCooldown = 5000;//how long between enemies 
-int enemyTimer = 0;
+int enemyCooldown = 7500;//how long between enemies 
+int enemyTimer = enemyCooldown;
 
 int waveCooldown = 30000;//how long between waves in milliseconds
 int waveTimer = 0;
@@ -20,7 +20,7 @@ boolean gameStarted;
 
 PImage [] towerImage = new PImage[8];
 PImage [] enemyImage = new PImage[8];
-PImage [] shotImage = new PImage[8];
+PImage [] towerShotImage = new PImage[8];
 
 PImage floorTile;
 
@@ -53,6 +53,23 @@ void setup()
   towerImage[7] = loadImage("dummy.png");
   towerImage[7].resize(boxSize, 0);
   
+  towerShotImage[0] = loadImage("dekuNut.png");//basic
+  towerShotImage[0].resize(boxSize/2, 0);
+  towerShotImage[1] = loadImage("dekuBall.png");//moderate
+  towerShotImage[1].resize(boxSize/2, 0);
+  towerShotImage[2] = loadImage("cobbleColor.png");//wall
+  towerShotImage[2].resize(boxSize/2, 0);
+  towerShotImage[3] = loadImage("bomb.png");//cannon
+  towerShotImage[3].resize(boxSize/2, 0);
+  towerShotImage[4] = loadImage("arrowRight.png");//fast
+  towerShotImage[4].resize(boxSize/2, 0);
+  towerShotImage[5] = loadImage("yellowFishRight.png");//producer
+  towerShotImage[5].resize(boxSize/2, 0);
+  towerShotImage[6] = loadImage("heartContainer.png");//healing wall
+  towerShotImage[6].resize(boxSize/2, 0);
+  towerShotImage[7] = loadImage("dummy.png");
+  towerShotImage[7].resize(boxSize/2, 0);
+  
   enemyImage[0] = loadImage("keese.png");//basic
   enemyImage[0].resize(boxSize, 0);
   enemyImage[1] = loadImage("ganon.png");
@@ -70,7 +87,7 @@ void setup()
   enemyImage[7] = loadImage("dummy.png");
   enemyImage[7].resize(boxSize, 0);
   
-  floorTile = loadImage("woodTileOutline.png");
+  floorTile = loadImage("grassTile3.png");
   floorTile.resize(boxSize,0);
 }
 void draw()
@@ -122,6 +139,11 @@ void mouseReleased()
         money -= towers.get(i).price;
         towers.get(i).produceTimer = millis() + towers.get(i).produceCooldown;
         towers.get(i).bought = true;
+      }
+      else if( !towers.get(i).bought && towers.get(i).grabbed && !mouseOnGrid() )
+      {
+        println("not on board");
+        towers.get(i).active = false;
       }
     }
     t.grabbed = false;
@@ -187,7 +209,7 @@ void handleEnemies()
     else if(enemyCooldown <= 1000 && difficulty < 8)
     {
       println("increasing difficulty");
-      enemyCooldown = 5000;
+      enemyCooldown = 7500;
       difficulty += 1;
     }
     

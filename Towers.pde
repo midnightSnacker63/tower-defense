@@ -141,12 +141,12 @@ class Towers
       case 0://basic little thing
         price = 10;
         maxHealth = 10;
-        cooldown = 750;
+        cooldown = 1875;
         return;
       case 1://basic normal thing
         price = 25;
         maxHealth = 25;
-        cooldown = 500;
+        cooldown = 1250;
         return;
       case 2://wall (does nothing but has a bunch of health)
         canAttack = false;
@@ -154,17 +154,17 @@ class Towers
         maxHealth = 100;
         return;
       case 3://cannon (slow with high damage)
-        cooldown = 3000;
+        cooldown = 7500;
         maxHealth = 50;
         price = 100;
         return;
       case 4://fast (fast with low damage)
-        cooldown = 250;
+        cooldown = 625;
         maxHealth = 15;
         price = 50;
         return;
       case 5://producer (makes money)
-        cooldown = 3000;
+        cooldown = 7500;
         maxHealth = 10;
         price = 50;
         canAttack = false;
