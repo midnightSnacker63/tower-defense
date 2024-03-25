@@ -48,8 +48,7 @@ class Enemies
     }
     else
     {
-      xSpd = 0;
-      
+      xSpd = 0.0;
     }
     if(xPos < -size)//makes you take damage if it goes offscreen and also kills it
     {
@@ -100,7 +99,10 @@ class Enemies
   {
     health -= amount;
     xSpd += knockback;
-    
+    if(frontBlocked())
+    {
+      xSpd += knockback;
+    }
     if(health <= 0)
     {
       active = false;

@@ -5,6 +5,7 @@ class Towers
   float size;
   float maxHealth = 10;
   float health = maxHealth;
+  float range;
   
   
   int type;
@@ -179,8 +180,8 @@ class Towers
         regen = true;
         return;
       case 7://not made yet
-        cooldown = 300;
-        maxHealth = 10;
+        cooldown = 5000;
+        maxHealth = 25;
         price = 50;
         return;
         

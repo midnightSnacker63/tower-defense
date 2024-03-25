@@ -14,7 +14,7 @@ int waveTimer = 0;
 
 int wave;//how many waves have passed
 
-int difficulty = 1;//as time goes by this will increase
+int difficulty = 4;//as time goes by this will increase
 
 boolean gameStarted;
 
@@ -76,7 +76,7 @@ void setup()
   enemyImage[1].resize(boxSize, 0);
   enemyImage[2] = loadImage("dekuScrub.png");//wall
   enemyImage[2].resize(boxSize, 0);
-  enemyImage[3] = loadImage("dummy.png");
+  enemyImage[3] = loadImage("piranhaLeft.png");
   enemyImage[3].resize(boxSize, 0);
   enemyImage[4] = loadImage("dummy.png");
   enemyImage[4].resize(boxSize, 0);
@@ -102,7 +102,7 @@ void keyPressed()
 {
   if(key == 'e')
   {
-    enemies.add(new Enemies(mouseX,mouseY,0));
+    enemies.add(new Enemies(mouseX,mouseY,int(random(0,difficulty))));
   }
   if(key == 'E')//wave
   {

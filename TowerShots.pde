@@ -90,6 +90,13 @@ class TowerShots
         return;
       case 5://producer
         return;
+      case 6://healing wall
+        return;
+      case 7://no damage but high knockback
+        damage = 0.0;
+        speed = 1;
+        knockback = 3;
+        return;
     }
   }
   void checkForHit()//allows it to hit enemies
