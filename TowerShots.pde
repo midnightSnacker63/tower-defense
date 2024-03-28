@@ -66,26 +66,27 @@ class TowerShots
     {
       case 0://basic 
         damage = 1;
+        speed = 0.95;
         rotateSpeed = 0.12;
         knockback = 0.1;
         return;
       case 1://moderate
         damage = 1;
-        speed = 1.25;
+        speed = 1;
         rotateSpeed = 0.05;
         knockback = 0.25;
         return;
       case 2://wall
         return;
       case 3://cannon
-        damage = 10;
+        damage = 15;
         speed = 0.7;
         rotateSpeed = 0.05;
         knockback = 2.5;
         return;
       case 4://fast low damage
         damage = .5;
-        speed = 0.7;
+        speed = 1.5;
         knockback = 0.1;
         return;
       case 5://producer
@@ -95,7 +96,7 @@ class TowerShots
       case 7://no damage but high knockback
         damage = 0.0;
         speed = 1;
-        knockback = 3;
+        knockback = 5;
         return;
     }
   }
@@ -103,7 +104,7 @@ class TowerShots
   {
     for( int i = 0; i < enemies.size(); i++ )
       {
-        if( dist( xPos,yPos, enemies.get(i).xPos,enemies.get(i).yPos ) < (size+enemies.get(i).size)/2  )
+        if( dist( xPos,yPos, enemies.get(i).xPos,enemies.get(i).yPos ) < (size+enemies.get(i).size)/2 && active  )
         {
           enemies.get(i).takeDamage(damage, knockback);
           active = false;

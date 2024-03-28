@@ -14,7 +14,7 @@ int waveTimer = 0;
 
 int wave;//how many waves have passed
 
-int difficulty = 4;//as time goes by this will increase
+int difficulty = 1;//as time goes by this will increase
 
 boolean gameStarted;
 
@@ -50,7 +50,7 @@ void setup()
   towerImage[5].resize(boxSize, 0);
   towerImage[6] = loadImage("heartContainer.png");
   towerImage[6].resize(boxSize, 0);
-  towerImage[7] = loadImage("dummy.png");
+  towerImage[7] = loadImage("arrow.png");
   towerImage[7].resize(boxSize, 0);
   
   towerShotImage[0] = loadImage("dekuNut.png");//basic
@@ -67,7 +67,7 @@ void setup()
   towerShotImage[5].resize(boxSize/2, 0);
   towerShotImage[6] = loadImage("heartContainer.png");//healing wall
   towerShotImage[6].resize(boxSize/2, 0);
-  towerShotImage[7] = loadImage("dummy.png");
+  towerShotImage[7] = loadImage("wind.png");
   towerShotImage[7].resize(boxSize/2, 0);
   
   enemyImage[0] = loadImage("keese.png");//basic
