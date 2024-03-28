@@ -14,7 +14,7 @@ int waveTimer = 0;
 
 int wave;//how many waves have passed
 
-int difficulty = 1;//as time goes by this will increase
+int difficulty = 1;//as time goes by this will increase starts at 1
 
 boolean gameStarted;
 
@@ -140,7 +140,7 @@ void mouseReleased()
         towers.get(i).produceTimer = millis() + towers.get(i).produceCooldown;
         towers.get(i).bought = true;
       }
-      else if( !towers.get(i).bought && towers.get(i).grabbed && !mouseOnGrid() )
+      else if( !towers.get(i).bought && towers.get(i).grabbed && !mouseOnGrid() )//removes tower if not bought and not on the board
       {
         println("not on board");
         towers.get(i).active = false;
@@ -169,7 +169,7 @@ void handleTowers()
     }
     for(int j = 0; j < 8; j++)
     {
-      if(!shopStocked(j))
+      if(!shopStocked(j))//restocks shop
       {
         int x = (width-225)+(j%2*150);
         int y = 180+(150*(j/2));
@@ -206,7 +206,7 @@ void handleEnemies()
       enemyCooldown -= enemyCooldown / 45;
       println(enemyCooldown);
     }
-    else if(enemyCooldown <= 1000 && difficulty < 8)
+    else if(enemyCooldown <= 1000 && difficulty < 8)//increases difficulty whenever the timer is too fast
     {
       println("increasing difficulty");
       enemyCooldown = 7000;
@@ -214,7 +214,7 @@ void handleEnemies()
     }
     
   }
-  if(millis() > waveTimer)
+  if(millis() > waveTimer)//sends waves
   {
     waveTimer += waveCooldown;
     println("INCOMING WAVE " + millis()/waveCooldown);
