@@ -35,7 +35,7 @@ void setup()
   UI = new UI();
   //fullScreen();
   //noStroke();
-  towers.add( new Towers(width - 225, 180,0));
+  towers.add( new Towers(width - 225, 180,0));//do not remove it will mess up the shop
   towerImage[0] = loadImage("PurpleDragonRight.png");//basic
   towerImage[0].resize(boxSize, 0);
   towerImage[1] = loadImage("cosmoPixel.png");
@@ -169,11 +169,12 @@ void handleTowers()
     }
     for(int j = 0; j < 8; j++)
     {
-      if(!shopStocked(j))//restocks shop
+      if(!shopStocked(j) && (mouseButton != LEFT))//restocks shop
       {
         int x = (width-225)+(j%2*150);
         int y = 180+(150*(j/2));
         towers.add( new Towers(x, y, j));
+
       }
     }
   }
@@ -277,7 +278,7 @@ boolean spaceOccupied()
 {
   for(int i = 0; i < towers.size(); i++)
   {
-    if(dist(mouseX,mouseY,towers.get(i).xPos,towers.get(i).yPos) < (towers.get(i).size/2) + 25)
+    if(dist(mouseX,mouseY,towers.get(i).xPos,towers.get(i).yPos) < (towers.get(i).size/2) + 20)
     {
       //println("there is already a tower there");
       return true;
