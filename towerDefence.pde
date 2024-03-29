@@ -5,18 +5,15 @@ ArrayList<Enemies> enemies = new ArrayList<Enemies>();
 int boxSize = 100;
 int life = 100;
 int money = 100;
-
 int enemyCooldown = 7000;//how long between enemies 
 int enemyTimer = enemyCooldown;
-
 int waveCooldown = 60000;//how long between waves in milliseconds
 int waveTimer = 0;
-
 int wave;//how many waves have passed
-
-int difficulty = 1;//as time goes by this will increase starts at 1
+int difficulty = 1;//as time goes by this will increase, starts at 1
 
 boolean gameStarted;
+boolean selling;
 
 PImage [] towerImage = new PImage[8];
 PImage [] enemyImage = new PImage[8];
@@ -35,7 +32,7 @@ void setup()
   UI = new UI();
   //fullScreen();
   //noStroke();
-  towers.add( new Towers(width - 225, 180,0));//do not remove it will mess up the shop
+  towers.add( new Towers(width - 225, 180,0));//do not remove this, it will mess up the shop
   towerImage[0] = loadImage("PurpleDragonRight.png");//basic
   towerImage[0].resize(boxSize, 0);
   towerImage[1] = loadImage("cosmoPixel.png");
@@ -121,12 +118,17 @@ void mousePressed()
 {
   for(Towers t: towers)
   {
-    if(dist(mouseX,mouseY,t.xPos,t.yPos) < (t.size/2) && (mouseButton == LEFT))//grabbing towers
+    if(dist(mouseX,mouseY,t.xPos,t.yPos) < (t.size/2) && (mouseButton == LEFT) && !t.placed)//grabbing towers
     {
       t.grabbed = true;
     }
+    if(dist(mouseX,mouseY,t.xPos,t.yPos) < (t.size/2) && (mouseButton == LEFT) && t.placed && selling)
+    {
+      t.active = false;
+      money += t.price*0.90;
+    }
   }
-  
+  sellingTowers();
 }
 void mouseReleased()
 {
@@ -139,6 +141,7 @@ void mouseReleased()
         money -= towers.get(i).price;
         towers.get(i).produceTimer = millis() + towers.get(i).produceCooldown;
         towers.get(i).bought = true;
+        towers.get(i).placed = true;
       }
       else if( !towers.get(i).bought && towers.get(i).grabbed && !mouseOnGrid() )//removes tower if not bought and not on the board
       {
@@ -263,6 +266,22 @@ void sendWave( int amount )//sends a wave of enemies based on the given number
 {
   for(int i = 0; i < amount; i++)
     enemies.add(new Enemies(width + random(50,750),random(0,height-boxSize),int(random(0,difficulty))));
+}
+
+void sellingTowers()
+{
+  if(dist(mouseX,mouseY,width-350,height-50) < 45 && !selling)
+  {
+    selling = true;
+    println("selling");
+    return;
+  }
+  if(dist(mouseX,mouseY,width-350,height-50) < 45 && selling)
+  {
+    selling = false;
+    println("not selling");
+    return;
+  }
 }
 
 boolean mouseOnGrid()

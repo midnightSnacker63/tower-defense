@@ -2,16 +2,11 @@ class TowerShots
 {
   float xPos,yPos;
   float xSpd,ySpd;
-  
   float speed = 1;//speed multiplier
-  
   float size;
-  
   float angle;
   float rotateSpeed;
-  
   float knockback;
-  
   float damage = 1;
   
   int cooldown = 1000;

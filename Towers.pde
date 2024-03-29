@@ -10,7 +10,6 @@ class Towers
   
   int type;
   int power;
-  
   int timer;
   int cooldown = 1000;
   int price;
@@ -25,6 +24,7 @@ class Towers
   boolean bought = false;
   boolean producer;
   boolean regen;
+  boolean placed;
 
   
   public Towers(float x,float y, int t)
@@ -161,7 +161,7 @@ class Towers
         price = 100;
         return;
       case 4://fast (fast with low damage)
-        cooldown = 500;
+        cooldown = 450;
         maxHealth = 15;
         price = 50;
         return;

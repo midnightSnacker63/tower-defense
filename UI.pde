@@ -10,9 +10,12 @@ class UI
   "healing wall\n$50",
   "pushes back enemies\n$50 ",
   };
+  
+  PImage sellIcon;
   public UI()
   {
-  
+    sellIcon = loadImage("cashIcon.png");
+    sellIcon.resize(75,0);
   }
   
   void drawBackground()
@@ -45,6 +48,15 @@ class UI
     fill(255,0,0);
     rect(25,height - 30,(waveTimer - millis())/100,20);//wave timer bar
     pop();
+    if(selling)
+    {
+      push();
+      textAlign(CENTER);
+      textSize(35);
+      fill(0);
+      text("SELLING!!!!!",width/2,height-55);
+      pop();
+    }
   }
   
   void drawInterface()
@@ -68,11 +80,19 @@ class UI
       {
         push();
         textSize(20);
+        fill(0);
         text(towerDescriptions[i],width-275,height-75);
         pop();
       }
     }
-    
-    
+    push();
+    textSize(20);
+    fill(0);
+    image(sellIcon,width-350,height-50);
+    if(dist(mouseX,mouseY,width-350,height-50) < 45)
+    {
+      text("sell towers",width-275,height-75);
+    }
+    pop();
   }
 }

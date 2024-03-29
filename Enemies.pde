@@ -6,6 +6,7 @@ class Enemies
   float maxHealth = 10;
   float health = maxHealth;
   float speed = 1;
+  float knockedBack = 1;//how much they get knocked back by shots
   
   int type;
   int damage = 1;
@@ -48,7 +49,7 @@ class Enemies
     }
     else
     {
-      xSpd = 0.0;
+      xSpd += 0.0005;
     }
     if(xPos < -size)//makes you take damage if it goes offscreen and also kills it
     {
@@ -85,11 +86,13 @@ class Enemies
         speed = 0.45;
         cooldown = 3500;
         damage = 10;
+        knockedBack = 0.5;
         return;
       case 3://fast with little health
         maxHealth = 5;
         speed = 3;
         cooldown = 500;
+        knockedBack = 5;
         return;
         
     }
@@ -97,13 +100,9 @@ class Enemies
   
   void takeDamage(float amount, float knockback)//allows enemies to take damage
   {
-    health -= amount;
-    xSpd += knockback;
-    if(frontBlocked())
-    {
-      xSpd += knockback;
-    }
-    if(health <= 0)
+    health -= amount;//remove health
+    xSpd += knockback * knockedBack;//knockback from damage
+    if(health <= 0)//kill enemy if health is 0
     {
       active = false;
       money += maxHealth/2;
