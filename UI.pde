@@ -42,7 +42,7 @@ class UI
     textSize(25);
     text(life,(width-boxSize*3)+30,40);
     text("$"+money,(width-boxSize*3)+30,80);
-    text("current wave: "+ wave, 25, height - 70 );
+    text("next wave size: "+ wave, 25, height - 70 );
     text("current difficulty: "+ difficulty, 25, height - 45 );
     rect(25,height - 30,waveTimer/(wave*100),20);//wave timer bar back
     fill(255,0,0);
@@ -54,7 +54,7 @@ class UI
       textAlign(CENTER);
       textSize(35);
       fill(0);
-      text("SELLING!!!!!",width/2,height-55);
+      text("SELLING!!!",width/2,height-55);
       pop();
     }
   }
