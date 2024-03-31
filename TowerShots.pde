@@ -84,7 +84,7 @@ class TowerShots
       case 4://fast low damage
         damage = .5;
         speed = 1.5;
-        knockback = 0.1;
+        knockback = 0.2;
         return;
       case 5://producer
         return;

@@ -4,7 +4,7 @@ class UI
   "basic low damage\n$10 ",
   "moderate tower\n$25 ",
   "wall, high health\n$50",
-  "cannon, high damage with\nexplosion but slow\n$150",
+  "cannon, high damage with\nexplosion but slow\n$175",
   "fast speed but low damage\n$50",
   "produces money\n$50",
   "healing wall\n$50",

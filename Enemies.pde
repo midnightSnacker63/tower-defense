@@ -8,6 +8,8 @@ class Enemies
   float speed = 1;
   float knockedBack = 1;//how much they get knocked back by shots
   float damage = 1;
+  float armourHealth;
+  float maxArmourHealth;
   
   int type;
   
@@ -32,12 +34,20 @@ class Enemies
   
   void drawEnemies()//drawing
   {
-    push();
-    fill(200,10,10);
-    image(enemyImage[type],xPos,yPos);
-    fill(0);
-    text(int(health),xPos,yPos);
-    pop();
+    if(!onGrid())
+    {
+      image(warning,width-350,yPos);
+    }
+    if(onGrid())
+    {
+      push();
+      fill(200,10,10);
+      image(enemyImage[type],xPos,yPos);
+      fill(0);
+      text(int(health),xPos,yPos);
+      pop();
+    }
+    
     if(health <= 0)//kill it if health is 0
     {
       active = false;
@@ -101,6 +111,34 @@ class Enemies
         knockedBack = 5;
         damage = .75 * power;
         return;
+      case 4://fast with little health
+        maxHealth = 10 * power;
+        speed = 1 * power;
+        cooldown = 600;
+        knockedBack = 1;
+        damage = 1 * power;
+        return;
+      case 5://fast with little health
+        maxHealth = 10 * power;
+        speed = 1 * power;
+        cooldown = 600;
+        knockedBack = 1;
+        damage = 1 * power;
+        return;
+      case 6://fast with little health
+        maxHealth = 10 * power;
+        speed = 1 * power;
+        cooldown = 600;
+        knockedBack = 1;
+        damage = 1 * power;
+        return;
+      case 7://fast with little health
+        maxHealth = 10 * power;
+        speed = 1 * power;
+        cooldown = 600;
+        knockedBack = 1;
+        damage = 1 * power;
+        return;
         
     }
   }
@@ -113,6 +151,7 @@ class Enemies
     {
       active = false;
       money += maxHealth/2;
+      return;
     }
   }
   

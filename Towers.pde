@@ -16,6 +16,8 @@ class Towers
   int produceTimer;
   int produceCooldown = 4000;
   int regenTimer;
+  int hitTimer;
+  int hitCooldown = 250;
   
   boolean grabbed;
   boolean active;
@@ -25,6 +27,7 @@ class Towers
   boolean producer;
   boolean regen;
   boolean placed;
+  boolean explosive;
 
   
   public Towers(float x,float y, int t)
@@ -59,6 +62,10 @@ class Towers
     if(health <= 0)//kill it if health is 0
     {
       active = false;
+      if(explosive)
+      {
+        explosion.add(new Explosion(xPos,yPos,0));
+      }
     }
     
   }
@@ -158,7 +165,7 @@ class Towers
       case 3://cannon (slow with high damage)
         cooldown = 10000;
         maxHealth = 50;
-        price = 150;
+        price = 175;
         return;
       case 4://fast (fast with low damage)
         cooldown = 450;
@@ -179,7 +186,7 @@ class Towers
         canAttack = false;
         regen = true;
         return;
-      case 7://not made yet
+      case 7://push back
         cooldown = 5000;
         maxHealth = 25;
         price = 50;

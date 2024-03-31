@@ -8,7 +8,7 @@ float power = 1;//muliplier for power so enemies get stronger in order to add ch
 int boxSize = 100;
 int life = 100;
 int money = 100;
-int enemyCooldown = 7000;//how long between enemies 
+int enemyCooldown = 10000;//how long between enemies 
 int enemyTimer = enemyCooldown;
 int waveCooldown = 60000;//how long between waves in milliseconds
 int waveTimer = 0;
@@ -23,6 +23,9 @@ PImage [] enemyImage = new PImage[8];
 PImage [] towerShotImage = new PImage[8];
 
 PImage floorTile;
+PImage warning;
+
+PImage explosionPic;
 
 UI UI;
 
@@ -33,6 +36,7 @@ void setup()
   size(1200,800);
   imageMode(CENTER);
   UI = new UI();
+  noSmooth();
   //fullScreen();
   //noStroke();
   towers.add( new Towers(width - 225, 180,0));//do not remove this, it will mess up the shop
@@ -87,8 +91,13 @@ void setup()
   enemyImage[7] = loadImage("dummy.png");
   enemyImage[7].resize(boxSize, 0);
   
+  explosionPic = loadImage("explosion.png");
+  
   floorTile = loadImage("grassTile3.png");
   floorTile.resize(boxSize,0);
+  
+  warning = loadImage("warningIcon.png");
+  warning.resize(int(boxSize*0.85),0);
 }
 void draw()
 {
@@ -118,6 +127,19 @@ void keyPressed()
   {
     money += 250;
   }
+  if(key == 'B')
+  {
+    explosion.add( new Explosion(mouseX,mouseY,2));
+  }
+  if(key == 'V')
+  {
+    explosion.add( new Explosion(mouseX,mouseY,1));
+  }
+  if(key == 'X')
+  {
+    for(int i = 0; i < 12; i++)
+      explosion.add( new Explosion(random(width),random(height),0));
+  }
 }
 void mousePressed()
 {
@@ -141,14 +163,14 @@ void mouseReleased()
   {
     for(int i = 0; i < towers.size(); i++)
     {
-      if(money >= towers.get(i).price && !towers.get(i).bought && towers.get(i).grabbed && mouseOnGrid())//buys towers
+      if(money >= towers.get(i).price && !towers.get(i).bought && towers.get(i).grabbed && mouseOnGrid() && towers.get(i).onGrid())//buys towers
       {
         money -= towers.get(i).price;
         towers.get(i).produceTimer = millis() + towers.get(i).produceCooldown;
         towers.get(i).bought = true;
         towers.get(i).placed = true;
       }
-      else if( !towers.get(i).bought && towers.get(i).grabbed && !mouseOnGrid() )//removes tower if not bought and not on the board
+      else if( !towers.get(i).bought && towers.get(i).grabbed && !mouseOnGrid())//removes tower if not bought and not on the board
       {
         println("not on board");
         towers.get(i).active = false;
@@ -210,15 +232,15 @@ void handleEnemies()
   {
     enemies.add(new Enemies(width + random(50,100),random(0,height-boxSize),int(random(0,difficulty))));
     enemyTimer = millis() + enemyCooldown;
-    if(enemyCooldown > 1000)//shorten timer making enemies spawn faster
+    if(enemyCooldown > 500)//shorten timer making enemies spawn faster
     {
-      enemyCooldown -= enemyCooldown / 45;
+      enemyCooldown -= enemyCooldown / 50;
       println(enemyCooldown);
     }
-    else if(enemyCooldown <= 1000 && difficulty < 8)//increases difficulty whenever the timer is too fast
+    else if(enemyCooldown <= 500 && difficulty < 8)//increases difficulty whenever the timer is too fast
     {
       println("increasing difficulty");
-      enemyCooldown = 7000;
+      enemyCooldown = 10000;
       difficulty += 1;
     }
     if( difficulty >= 8)
