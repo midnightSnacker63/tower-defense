@@ -1,6 +1,9 @@
 ArrayList<Towers> towers = new ArrayList<Towers>();
 ArrayList<TowerShots> tShots = new ArrayList<TowerShots>();
 ArrayList<Enemies> enemies = new ArrayList<Enemies>();
+ArrayList<Explosion> explosion = new ArrayList<Explosion>();
+
+float power = 1;//muliplier for power so enemies get stronger in order to add challenge
 
 int boxSize = 100;
 int life = 100;
@@ -93,7 +96,9 @@ void draw()
   handleEnemies();
   handleTowers();
   handleTowerShot();
+  handleExplosions();
   handleForeground();
+
 }
 void keyPressed()
 {
@@ -216,9 +221,14 @@ void handleEnemies()
       enemyCooldown = 7000;
       difficulty += 1;
     }
+    if( difficulty >= 8)
+    {
+      println("increasing power: " + power);
+      power += 0.005;
+    }
     
   }
-  if(millis() > waveTimer)//sends waves
+  if(millis() > waveTimer && life > 0)//sends waves
   {
     waveTimer += waveCooldown;
     println("INCOMING WAVE " + millis()/waveCooldown);
@@ -262,6 +272,24 @@ void handleTowerShot()
   }
 }
 
+void handleExplosions()
+{
+  for(Explosion e:explosion)
+  {
+    e.drawExplosion();
+    e.moveExplosion();
+    e.checkForHit();
+     
+  }
+  for(int i = 0; i < explosion.size(); i++)
+  {
+    if(!explosion.get(i).active)//remove enemies if they are not active
+    {
+      explosion.remove(i);
+    }
+  } 
+}
+
 void sendWave( int amount )//sends a wave of enemies based on the given number
 {
   for(int i = 0; i < amount; i++)
@@ -297,7 +325,7 @@ boolean spaceOccupied()
 {
   for(int i = 0; i < towers.size(); i++)
   {
-    if(dist(mouseX,mouseY,towers.get(i).xPos,towers.get(i).yPos) < (towers.get(i).size/2) + 20)
+    if(dist(mouseX,mouseY,towers.get(i).xPos,towers.get(i).yPos) < (towers.get(i).size/2) + boxSize*0.2)
     {
       //println("there is already a tower there");
       return true;

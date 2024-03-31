@@ -4,7 +4,7 @@ class UI
   "basic low damage\n$10 ",
   "moderate tower\n$25 ",
   "wall, high health\n$50",
-  "cannon, high damage but slow\n$100",
+  "cannon, high damage with\nexplosion but slow\n$150",
   "fast speed but low damage\n$50",
   "produces money\n$50",
   "healing wall\n$50",
@@ -46,7 +46,8 @@ class UI
     text("current difficulty: "+ difficulty, 25, height - 45 );
     rect(25,height - 30,waveTimer/(wave*100),20);//wave timer bar back
     fill(255,0,0);
-    rect(25,height - 30,(waveTimer - millis())/100,20);//wave timer bar
+    if(life > 0)
+      rect(25,height - 30,(waveTimer - millis())/100,20);//wave timer bar
     pop();
     if(selling)
     {

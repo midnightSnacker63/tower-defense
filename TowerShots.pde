@@ -13,6 +13,7 @@ class TowerShots
   int type;
   
   boolean active;
+  boolean explosive;
   public TowerShots( float x, float y , int t)
   {
     xPos = x;
@@ -74,10 +75,11 @@ class TowerShots
       case 2://wall
         return;
       case 3://cannon
-        damage = 15;
+        damage = 5;
         speed = 0.7;
         rotateSpeed = 0.05;
-        knockback = 2.5;
+        knockback = 2;
+        explosive = true;
         return;
       case 4://fast low damage
         damage = .5;
@@ -102,6 +104,10 @@ class TowerShots
         if( dist( xPos,yPos, enemies.get(i).xPos,enemies.get(i).yPos ) < (size+enemies.get(i).size)/2 && active  )
         {
           enemies.get(i).takeDamage(damage, knockback);
+          if(explosive)
+          {
+            explosion.add(new Explosion(xPos,yPos,0));
+          }
           active = false;
         }
       }

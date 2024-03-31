@@ -122,15 +122,15 @@ class Towers
     {
       xPos -= 50;
     }
-    if(yPos > height-(boxSize)-size/2)
+    if(yPos > height-(boxSize)-size/2 && bought)
     {
       yPos -= 50;
     }
-    if(xPos < 0)
+    if(xPos < 0 && bought)
     {
       xPos += 50;
     }
-    if(yPos < 0)
+    if(yPos < 0 && bought)
     {
       yPos += 50;
     }
@@ -156,9 +156,9 @@ class Towers
         maxHealth = 100;
         return;
       case 3://cannon (slow with high damage)
-        cooldown = 7500;
+        cooldown = 10000;
         maxHealth = 50;
-        price = 100;
+        price = 150;
         return;
       case 4://fast (fast with low damage)
         cooldown = 450;

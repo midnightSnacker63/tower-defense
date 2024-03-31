@@ -7,11 +7,14 @@ class Enemies
   float health = maxHealth;
   float speed = 1;
   float knockedBack = 1;//how much they get knocked back by shots
+  float damage = 1;
   
   int type;
-  int damage = 1;
+  
   int timer;
   int cooldown = 600;
+  int hitTimer;
+  int hitCooldown = 150;
   
   boolean active;
   
@@ -45,11 +48,11 @@ class Enemies
   {
     if(!frontBlocked())//only move if their front isnt blocked
     {
-      xSpd -= 0.02 * speed;
+      xSpd -= (0.02 * speed);
     }
     else
     {
-      xSpd += 0.0005;
+      xSpd += 0.00075;
     }
     if(xPos < -size)//makes you take damage if it goes offscreen and also kills it
     {
@@ -75,24 +78,28 @@ class Enemies
     switch(type)
     {
       case 0:
-        maxHealth = 10;
+        maxHealth = 10 * power;
+        speed = 1 * power;
+        damage = 1 * power;
         return;
       case 1:
-        maxHealth = 15;
-        speed = 1.25;
+        maxHealth = 15* power;
+        speed = 1.25 * power;
+        damage = 1 * power;
         return;
       case 2://brute
-        maxHealth = 50;
-        speed = 0.45;
+        maxHealth = 50 * power;
+        speed = 0.45 * power;
         cooldown = 3500;
-        damage = 10;
+        damage = 10 * power;
         knockedBack = 0.5;
         return;
       case 3://fast with little health
-        maxHealth = 5;
-        speed = 3;
+        maxHealth = 5 * power;
+        speed = 3 * power;
         cooldown = 500;
         knockedBack = 5;
+        damage = .75 * power;
         return;
         
     }
