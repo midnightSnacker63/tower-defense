@@ -137,8 +137,13 @@ void keyPressed()
   }
   if(key == 'X')
   {
-    for(int i = 0; i < 12; i++)
+    for(int i = 0; i < 25; i++)
       explosion.add( new Explosion(random(width),random(height),0));
+  }
+  if(key == 'P')
+  {
+    power+=0.1;
+    println(power);
   }
 }
 void mousePressed()
@@ -174,6 +179,7 @@ void mouseReleased()
       {
         println("not on board");
         towers.get(i).active = false;
+        return;
       }
     }
     t.grabbed = false;

@@ -8,7 +8,7 @@ class Explosion
   float rotateSpeed = 0.25;//how fast it spins
   float maxSize;//maximum size it can reach
   float growthRate;//how fast it expands
-  float speed;
+  float speed; 
   
   int timer;//how long its been alive
   int lifeTime;//how long it will last
@@ -72,7 +72,7 @@ class Explosion
     {
       if( dist( xPos,yPos, enemies.get(i).xPos,enemies.get(i).yPos ) < (size+enemies.get(i).size)/2 && active && millis() > enemies.get(i).hitTimer && !bad )
       {
-        enemies.get(i).takeDamage(damage, .1);
+        enemies.get(i).takeDamage(damage, .25);
         enemies.get(i).hitTimer = millis()+enemies.get(i).hitCooldown;
       }
     }

@@ -16,7 +16,7 @@ class Enemies
   int timer;
   int cooldown = 600;
   int hitTimer;
-  int hitCooldown = 150;
+  int hitCooldown = 100;
   
   boolean active;
   
@@ -62,16 +62,14 @@ class Enemies
     }
     else
     {
-      xSpd += 0.00075;
+      xSpd += 0.005*power;
     }
     if(xPos < -size)//makes you take damage if it goes offscreen and also kills it
     {
       if(life > 0)
         life -= health;
       if(life <= 0)
-      {
         life = 0;
-      }
       
       active = false;
     }
@@ -102,7 +100,7 @@ class Enemies
         speed = 0.45 * power;
         cooldown = 3500;
         damage = 10 * power;
-        knockedBack = 0.5;
+        knockedBack = 0.3;
         return;
       case 3://fast with little health
         maxHealth = 5 * power;
@@ -111,28 +109,28 @@ class Enemies
         knockedBack = 5;
         damage = .75 * power;
         return;
-      case 4://fast with little health
+      case 4://tbd
         maxHealth = 10 * power;
         speed = 1 * power;
         cooldown = 600;
         knockedBack = 1;
         damage = 1 * power;
         return;
-      case 5://fast with little health
+      case 5://tbd
         maxHealth = 10 * power;
         speed = 1 * power;
         cooldown = 600;
         knockedBack = 1;
         damage = 1 * power;
         return;
-      case 6://fast with little health
+      case 6://tbd
         maxHealth = 10 * power;
         speed = 1 * power;
         cooldown = 600;
         knockedBack = 1;
         damage = 1 * power;
         return;
-      case 7://fast with little health
+      case 7://tbd
         maxHealth = 10 * power;
         speed = 1 * power;
         cooldown = 600;
