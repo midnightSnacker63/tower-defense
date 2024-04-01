@@ -7,7 +7,6 @@ class Towers
   float health = maxHealth;
   float range;
   
-  
   int type;
   int power;
   int timer;
@@ -62,7 +61,7 @@ class Towers
     if(health <= 0)//kill it if health is 0
     {
       active = false;
-      if(explosive)
+      if(explosive)//explode if explosive
       {
         explosion.add(new Explosion(xPos,yPos,0));
       }

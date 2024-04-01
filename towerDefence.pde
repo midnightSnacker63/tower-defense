@@ -36,7 +36,7 @@ void setup()
   size(1200,800);
   imageMode(CENTER);
   UI = new UI();
-  noSmooth();
+  //noSmooth();
   //fullScreen();
   //noStroke();
   towers.add( new Towers(width - 225, 180,0));//do not remove this, it will mess up the shop
@@ -82,7 +82,7 @@ void setup()
   enemyImage[2].resize(boxSize, 0);
   enemyImage[3] = loadImage("piranhaLeft.png");
   enemyImage[3].resize(boxSize, 0);
-  enemyImage[4] = loadImage("dummy.png");
+  enemyImage[4] = loadImage("bombGuy.png");
   enemyImage[4].resize(boxSize, 0);
   enemyImage[5] = loadImage("dummy.png");
   enemyImage[5].resize(boxSize, 0);
@@ -174,6 +174,7 @@ void mouseReleased()
         towers.get(i).produceTimer = millis() + towers.get(i).produceCooldown;
         towers.get(i).bought = true;
         towers.get(i).placed = true;
+        selling = false;
       }
       else if( !towers.get(i).bought && towers.get(i).grabbed && !mouseOnGrid())//removes tower if not bought and not on the board
       {

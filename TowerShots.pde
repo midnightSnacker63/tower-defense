@@ -78,7 +78,7 @@ class TowerShots
         damage = 5;
         speed = 0.7;
         rotateSpeed = 0.05;
-        knockback = 2;
+        knockback = 1.5;
         explosive = true;
         return;
       case 4://fast low damage

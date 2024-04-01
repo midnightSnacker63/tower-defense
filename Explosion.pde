@@ -114,6 +114,14 @@ class Explosion
         lifeTime = 2500;
         growthRate = 15 * (boxSize/100);
         return;
+      case 3://enemy explosion
+        bad = true;
+        damage = 5;
+        //size = boxSize*2;
+        maxSize = boxSize*2.5;
+        lifeTime = 1000;
+        growthRate = 5 * (boxSize/100);
+        return;
     }
   }
 }

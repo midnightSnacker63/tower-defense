@@ -19,6 +19,7 @@ class Enemies
   int hitCooldown = 100;
   
   boolean active;
+  boolean explosive;
   
   public Enemies(float x, float y, int t)
   {
@@ -109,12 +110,13 @@ class Enemies
         knockedBack = 5;
         damage = .75 * power;
         return;
-      case 4://tbd
-        maxHealth = 10 * power;
-        speed = 1 * power;
+      case 4://low health but blow up
+        maxHealth = 1 * power;
+        speed = 1.5 * power;
         cooldown = 600;
-        knockedBack = 1;
+        knockedBack = 3;
         damage = 1 * power;
+        explosive = true;
         return;
       case 5://tbd
         maxHealth = 10 * power;
@@ -149,6 +151,10 @@ class Enemies
     {
       active = false;
       money += maxHealth/2;
+      if(explosive)//explode if explosive
+      {
+        explosion.add(new Explosion(xPos,yPos,3));
+      }
       return;
     }
   }
