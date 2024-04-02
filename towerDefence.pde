@@ -303,15 +303,11 @@ void handleTowerShot()
 
 void handleExplosions()
 {
-  for(Explosion e:explosion)
-  {
-    e.drawExplosion();
-    e.moveExplosion();
-    e.checkForHit();
-     
-  }
   for(int i = 0; i < explosion.size(); i++)
   {
+    explosion.get(i).drawExplosion();
+    explosion.get(i).moveExplosion();
+    explosion.get(i).checkForHit();
     if(!explosion.get(i).active)//remove enemies if they are not active
     {
       explosion.remove(i);

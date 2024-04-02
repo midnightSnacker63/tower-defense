@@ -93,7 +93,7 @@ class Explosion
       case 0:
         bad = false;
         damage = 5;
-        //size = boxSize*2;
+        size = 20;
         maxSize = boxSize*2.5;
         lifeTime = 1000;
         growthRate = 5 * (boxSize/100);
