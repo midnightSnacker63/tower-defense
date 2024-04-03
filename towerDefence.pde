@@ -8,19 +8,20 @@ float power = 1;//muliplier for power so enemies get stronger in order to add ch
 int boxSize = 100;
 int life = 100;
 int money = 100;
-int enemyCooldown = 10000;//how long between enemies 
+int enemyCooldown = 8000;//how long between enemies 
 int enemyTimer = enemyCooldown;
 int waveCooldown = 60000;//how long between waves in milliseconds
 int waveTimer = 0;
 int wave;//how many waves have passed
 int difficulty = 1;//as time goes by this will increase, starts at 1
+int shopScroll;
 
 boolean gameStarted;
 boolean selling;
 
-PImage [] towerImage = new PImage[8];
-PImage [] enemyImage = new PImage[8];
-PImage [] towerShotImage = new PImage[8];
+PImage [] towerImage = new PImage[16];
+PImage [] enemyImage = new PImage[16];
+PImage [] towerShotImage = new PImage[16];
 
 PImage floorTile;
 PImage warning;
@@ -56,6 +57,22 @@ void setup()
   towerImage[6].resize(boxSize, 0);
   towerImage[7] = loadImage("arrow.png");
   towerImage[7].resize(boxSize, 0);
+  towerImage[8] = loadImage("mine.png");
+  towerImage[8].resize(boxSize, 0);
+  towerImage[9] = loadImage("twoYellowFish.png");
+  towerImage[9].resize(boxSize, 0);
+  towerImage[10] = loadImage("dummy.png");
+  towerImage[10].resize(boxSize, 0);
+  towerImage[11] = loadImage("dummy.png");
+  towerImage[11].resize(boxSize, 0);
+  towerImage[12] = loadImage("dummy.png");
+  towerImage[12].resize(boxSize, 0);
+  towerImage[13] = loadImage("dummy.png");
+  towerImage[13].resize(boxSize, 0);
+  towerImage[14] = loadImage("dummy.png");
+  towerImage[14].resize(boxSize, 0);
+  towerImage[15] = loadImage("dummy.png");
+  towerImage[15].resize(boxSize, 0);
   
   towerShotImage[0] = loadImage("dekuNut.png");//basic
   towerShotImage[0].resize(boxSize/2, 0);
@@ -73,6 +90,22 @@ void setup()
   towerShotImage[6].resize(boxSize/2, 0);
   towerShotImage[7] = loadImage("wind.png");
   towerShotImage[7].resize(boxSize/2, 0);
+  towerShotImage[8] = loadImage("dummy.png");
+  towerShotImage[8].resize(boxSize/2, 0);
+  towerShotImage[9] = loadImage("dummy.png");
+  towerShotImage[9].resize(boxSize/2, 0);
+  towerShotImage[10] = loadImage("dummy.png");
+  towerShotImage[10].resize(boxSize/2, 0);
+  towerShotImage[11] = loadImage("dummy.png");
+  towerShotImage[11].resize(boxSize/2, 0);
+  towerShotImage[12] = loadImage("dummy.png");
+  towerShotImage[12].resize(boxSize/2, 0);
+  towerShotImage[13] = loadImage("dummy.png");
+  towerShotImage[13].resize(boxSize/2, 0);
+  towerShotImage[14] = loadImage("dummy.png");
+  towerShotImage[14].resize(boxSize/2, 0);
+  towerShotImage[15] = loadImage("dummy.png");
+  towerShotImage[15].resize(boxSize/2, 0);
   
   enemyImage[0] = loadImage("keese.png");//basic
   enemyImage[0].resize(boxSize, 0);
@@ -210,7 +243,7 @@ void handleTowers()
       {
         int x = (width-225)+(j%2*150);
         int y = 180+(150*(j/2));
-        towers.add( new Towers(x, y, j));
+        towers.add( new Towers(x, y, j+shopScroll));
 
       }
     }
@@ -239,15 +272,15 @@ void handleEnemies()
   {
     enemies.add(new Enemies(width + random(50,100),random(0,height-boxSize),int(random(0,difficulty))));
     enemyTimer = millis() + enemyCooldown;
-    if(enemyCooldown > 500)//shorten timer making enemies spawn faster
+    if(enemyCooldown > 750)//shorten timer making enemies spawn faster
     {
       enemyCooldown -= enemyCooldown / 50;
       println(enemyCooldown);
     }
-    else if(enemyCooldown <= 500 && difficulty < 8)//increases difficulty whenever the timer is too fast
+    else if(enemyCooldown <= 750 && difficulty < 8)//increases difficulty whenever the timer is too fast
     {
       println("increasing difficulty");
-      enemyCooldown = 10000;
+      enemyCooldown = 8000;
       difficulty += 1;
     }
     if( difficulty >= 8)
@@ -372,4 +405,31 @@ boolean shopStocked( int x )
       }
   }
   return false;
+}
+void mouseWheel(MouseEvent event)
+{
+  float e = event.getCount();
+  if (e > 0  && shopScroll < 8)
+  {
+    shopScroll +=2;
+    for(int i = 0; i < towers.size(); i++)
+    {
+      if(!towers.get(i).bought)
+      {
+        towers.get(i).active = false;
+      }
+    }
+  }
+  if (e < 0 && shopScroll > 0)
+  {
+    shopScroll-=2;
+    for(int i = 0; i < towers.size(); i++)
+    {
+      if(!towers.get(i).bought)
+      {
+        towers.get(i).active = false;
+      }
+    }
+  }
+  
 }

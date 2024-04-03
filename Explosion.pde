@@ -94,7 +94,7 @@ class Explosion
         bad = false;
         damage = 5;
         size = 20;
-        maxSize = boxSize*2.5;
+        maxSize = boxSize*2;
         lifeTime = 1000;
         growthRate = 5 * (boxSize/100);
         return;
@@ -121,6 +121,14 @@ class Explosion
         maxSize = boxSize*2.5;
         lifeTime = 1000;
         growthRate = 5 * (boxSize/100);
+        return;
+      case 4://when towers explode
+        bad = false;
+        damage = 15;
+        size = boxSize;
+        maxSize = boxSize*2.75;
+        lifeTime = 1200;
+        growthRate = 7 * (boxSize/100);
         return;
     }
   }

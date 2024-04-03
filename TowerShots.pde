@@ -64,13 +64,13 @@ class TowerShots
         damage = 1;
         speed = 0.95;
         rotateSpeed = 0.12;
-        knockback = 0.1;
+        knockback = 0.15;
         return;
       case 1://moderate
         damage = 1;
         speed = 1;
         rotateSpeed = 0.05;
-        knockback = 0.25;
+        knockback = 0.2;
         return;
       case 2://wall
         return;
@@ -78,7 +78,7 @@ class TowerShots
         damage = 5;
         speed = 0.7;
         rotateSpeed = 0.05;
-        knockback = 1.5;
+        knockback = 1;
         explosive = true;
         return;
       case 4://fast low damage
@@ -93,7 +93,7 @@ class TowerShots
       case 7://no damage but high knockback
         damage = 0.0;
         speed = 1;
-        knockback = 5;
+        knockback = 3;
         return;
     }
   }

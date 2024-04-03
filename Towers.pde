@@ -17,6 +17,7 @@ class Towers
   int regenTimer;
   int hitTimer;
   int hitCooldown = 250;
+  int produceAmount = 5;
   
   boolean grabbed;
   boolean active;
@@ -63,7 +64,7 @@ class Towers
       active = false;
       if(explosive)//explode if explosive
       {
-        explosion.add(new Explosion(xPos,yPos,0));
+        explosion.add(new Explosion(xPos,yPos,4));
       }
     }
     
@@ -106,7 +107,7 @@ class Towers
   {
     if(producer && millis() > produceTimer && bought)
     {
-      money += 5;
+      money += produceAmount;
       produceTimer += produceCooldown;
     }
   }
@@ -147,9 +148,10 @@ class Towers
     switch(type)
     {
       case 0://basic little thing
-        price = 10;
+        price = 15;
         maxHealth = 10;
-        cooldown = 1875;
+        cooldown = 1800;
+        maxHealth = 15;
         return;
       case 1://basic normal thing
         price = 25;
@@ -189,6 +191,20 @@ class Towers
         cooldown = 5000;
         maxHealth = 25;
         price = 50;
+        return;
+      case 8://mines
+        canAttack = false;
+        maxHealth = 1;
+        explosive = true;
+        price = 30;
+        return;
+      case 9://better producer (makes more money)
+        cooldown = 7500;
+        produceAmount = 10;
+        maxHealth = 10;
+        price = 125;
+        canAttack = false;
+        producer = true;
         return;
         
     }

@@ -1,7 +1,7 @@
 class UI
 {
   String towerDescriptions[] = {
-  "basic low damage\n$10 ",
+  "basic low damage\n$15 ",
   "moderate tower\n$25 ",
   "wall, high health\n$50",
   "cannon, high damage with\nexplosion but slow\n$175",
@@ -9,6 +9,14 @@ class UI
   "produces money\n$50",
   "healing wall\n$50",
   "pushes back enemies\n$50 ",
+  "mines, they explode if touched\n$30 ",
+  "better producers, they make\nmore money \n$125",
+  " ",
+  " ",
+  " ",
+  " ",
+  " ",
+  " ",
   };
   
   PImage sellIcon;
@@ -75,14 +83,14 @@ class UI
       rectMode(CENTER);
       fill(#835B10);
       rect(x,y,120,120,25);
-      image(towerImage[i],x,y);//the tower images in shop
+      image(towerImage[i+shopScroll],x,y);//the tower images in shop
       pop();
       if(dist(mouseX,mouseY,x,y) < boxSize/2)//displays tower descriptions when hovering over in shop
       {
         push();
         textSize(20);
         fill(0);
-        text(towerDescriptions[i],width-275,height-75);
+        text(towerDescriptions[i+shopScroll],width-275,height-75);
         pop();
       }
     }
