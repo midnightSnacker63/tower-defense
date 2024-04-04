@@ -18,6 +18,8 @@ class Towers
   int hitTimer;
   int hitCooldown = 250;
   int produceAmount = 5;
+  int lifeTimer;
+  int lifeCooldown;
   
   boolean grabbed;
   boolean active;
@@ -28,6 +30,7 @@ class Towers
   boolean regen;
   boolean placed;
   boolean explosive;
+  boolean temporary;
 
   
   public Towers(float x,float y, int t)
@@ -67,7 +70,10 @@ class Towers
         explosion.add(new Explosion(xPos,yPos,4));
       }
     }
-    
+    if(temporary && millis() > lifeTimer)
+    {
+      active = false;
+    }
   }
   
   void moveTowers()
@@ -205,6 +211,12 @@ class Towers
         price = 125;
         canAttack = false;
         producer = true;
+        return;
+        
+      case 20://
+        temporary = true;
+        lifeCooldown = 1500;
+        lifeTimer = millis() + lifeCooldown;
         return;
         
     }

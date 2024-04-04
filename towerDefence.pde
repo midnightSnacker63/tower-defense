@@ -19,9 +19,9 @@ int shopScroll;
 boolean gameStarted;
 boolean selling;
 
-PImage [] towerImage = new PImage[16];
-PImage [] enemyImage = new PImage[16];
-PImage [] towerShotImage = new PImage[16];
+PImage [] towerImage = new PImage[21];
+PImage [] enemyImage = new PImage[21];
+PImage [] towerShotImage = new PImage[21];
 
 PImage floorTile;
 PImage warning;
@@ -73,6 +73,8 @@ void setup()
   towerImage[14].resize(boxSize, 0);
   towerImage[15] = loadImage("dummy.png");
   towerImage[15].resize(boxSize, 0);
+  towerImage[20] = loadImage("dummy.png");
+  towerImage[20].resize(boxSize, 0);
   
   towerShotImage[0] = loadImage("dekuNut.png");//basic
   towerShotImage[0].resize(boxSize/2, 0);
@@ -106,6 +108,17 @@ void setup()
   towerShotImage[14].resize(boxSize/2, 0);
   towerShotImage[15] = loadImage("dummy.png");
   towerShotImage[15].resize(boxSize/2, 0);
+  
+  towerShotImage[16] = loadImage("dummy.png");
+  towerShotImage[16].resize(boxSize/2, 0);
+  towerShotImage[17] = loadImage("dummy.png");
+  towerShotImage[17].resize(boxSize/2, 0);
+  towerShotImage[18] = loadImage("dummy.png");
+  towerShotImage[18].resize(boxSize/2, 0);
+  towerShotImage[19] = loadImage("dummy.png");
+  towerShotImage[19].resize(boxSize/2, 0);
+  towerShotImage[20] = loadImage("dummy.png");
+  towerShotImage[20].resize(boxSize/2, 0);
   
   enemyImage[0] = loadImage("keese.png");//basic
   enemyImage[0].resize(boxSize, 0);
@@ -177,6 +190,10 @@ void keyPressed()
   {
     power+=0.1;
     println(power);
+  }
+  if(key == 't')
+  {
+    towers.add( new Towers(mouseX, mouseY, 20));
   }
 }
 void mousePressed()
@@ -279,7 +296,7 @@ void handleEnemies()
     }
     else if(enemyCooldown <= 750 && difficulty < 8)//increases difficulty whenever the timer is too fast
     {
-      println("increasing difficulty");
+      println("increasing difficulty, current time" + millis()/1000);
       enemyCooldown = 8000;
       difficulty += 1;
     }
@@ -383,7 +400,7 @@ boolean spaceOccupied()
 {
   for(int i = 0; i < towers.size(); i++)
   {
-    if(dist(mouseX,mouseY,towers.get(i).xPos,towers.get(i).yPos) < (towers.get(i).size/2) + boxSize*0.2)
+    if(dist(mouseX,mouseY,towers.get(i).xPos,towers.get(i).yPos) < (towers.get(i).size/2) + boxSize*0.21)
     {
       //println("there is already a tower there");
       return true;
