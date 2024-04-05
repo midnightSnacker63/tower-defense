@@ -11,6 +11,9 @@ class TowerShots
   
   int cooldown = 1000;
   int type;
+  int red = 255;
+  int green = 255;
+  int blue = 255;
   
   boolean active;
   boolean explosive;
@@ -32,6 +35,7 @@ class TowerShots
       translate(xPos,yPos);
       rotate(angle);
       angle+=rotateSpeed;
+      tint(red,green,blue);
       image(towerShotImage[type],0,0);
       //circle(xPos,yPos,50);
       pop();
@@ -63,7 +67,6 @@ class TowerShots
       case 0://basic 
         damage = 1;
         speed = 0.95;
-        rotateSpeed = 0.12;
         knockback = 0.15;
         return;
       case 1://moderate
@@ -71,6 +74,9 @@ class TowerShots
         speed = 1;
         rotateSpeed = 0.05;
         knockback = 0.2;
+        red = int(random(0,255));
+        green = int(random(0,255));
+        blue = int(random(0,255));
         return;
       case 2://wall
         return;

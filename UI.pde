@@ -2,7 +2,7 @@ class UI
 {
   String towerDescriptions[] = {
   "basic low damage\n$15 ",
-  "moderate tower\n$25 ",
+  "CatFish, moderate stats\n$25 ",
   "wall, high health\n$50",
   "cannon, high damage with\nexplosion but slow\n$175",
   "fast speed but low damage\n$50",

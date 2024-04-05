@@ -41,9 +41,9 @@ void setup()
   //fullScreen();
   //noStroke();
   towers.add( new Towers(width - 225, 180,0));//do not remove this, it will mess up the shop
-  towerImage[0] = loadImage("PurpleDragonRight.png");//basic
+  towerImage[0] = loadImage("smallFry.png");//basic
   towerImage[0].resize(boxSize, 0);
-  towerImage[1] = loadImage("cosmoPixel.png");
+  towerImage[1] = loadImage("CatFish.png");
   towerImage[1].resize(boxSize, 0);
   towerImage[2] = loadImage("cobbleColor.png");//wall
   towerImage[2].resize(boxSize, 0);
@@ -53,7 +53,7 @@ void setup()
   towerImage[4].resize(boxSize, 0);
   towerImage[5] = loadImage("yellowFishRight.png");
   towerImage[5].resize(boxSize, 0);
-  towerImage[6] = loadImage("heartContainer.png");
+  towerImage[6] = loadImage("heartFish.png");
   towerImage[6].resize(boxSize, 0);
   towerImage[7] = loadImage("arrow.png");
   towerImage[7].resize(boxSize, 0);
@@ -76,9 +76,9 @@ void setup()
   towerImage[20] = loadImage("dummy.png");
   towerImage[20].resize(boxSize, 0);
   
-  towerShotImage[0] = loadImage("dekuNut.png");//basic
+  towerShotImage[0] = loadImage("waterDropShot.png");//basic
   towerShotImage[0].resize(boxSize/2, 0);
-  towerShotImage[1] = loadImage("dekuBall.png");//moderate
+  towerShotImage[1] = loadImage("yarnBall.png");//moderate
   towerShotImage[1].resize(boxSize/2, 0);
   towerShotImage[2] = loadImage("cobbleColor.png");//wall
   towerShotImage[2].resize(boxSize/2, 0);
