@@ -45,9 +45,9 @@ void setup()
   towerImage[0].resize(boxSize, 0);
   towerImage[1] = loadImage("CatFish.png");
   towerImage[1].resize(boxSize, 0);
-  towerImage[2] = loadImage("cobbleColor.png");//wall
+  towerImage[2] = loadImage("coral.png");//wall
   towerImage[2].resize(boxSize, 0);
-  towerImage[3] = loadImage("oldMan.png");
+  towerImage[3] = loadImage("cannonFish.png");
   towerImage[3].resize(boxSize, 0);
   towerImage[4] = loadImage("blueFish.png");
   towerImage[4].resize(boxSize, 0);
@@ -57,7 +57,7 @@ void setup()
   towerImage[6].resize(boxSize, 0);
   towerImage[7] = loadImage("arrow.png");
   towerImage[7].resize(boxSize, 0);
-  towerImage[8] = loadImage("mine.png");
+  towerImage[8] = loadImage("waterMine.png");
   towerImage[8].resize(boxSize, 0);
   towerImage[9] = loadImage("twoYellowFish.png");
   towerImage[9].resize(boxSize, 0);
@@ -90,7 +90,7 @@ void setup()
   towerShotImage[5].resize(boxSize/2, 0);
   towerShotImage[6] = loadImage("heartContainer.png");//healing wall
   towerShotImage[6].resize(boxSize/2, 0);
-  towerShotImage[7] = loadImage("wind.png");
+  towerShotImage[7] = loadImage("waterBlast.png");
   towerShotImage[7].resize(boxSize/2, 0);
   towerShotImage[8] = loadImage("dummy.png");
   towerShotImage[8].resize(boxSize/2, 0);
@@ -139,7 +139,7 @@ void setup()
   
   explosionPic = loadImage("explosion.png");
   
-  floorTile = loadImage("grassTile3.png");
+  floorTile = loadImage("waterTile2.png");
   floorTile.resize(boxSize,0);
   
   warning = loadImage("warningIcon.png");
@@ -191,10 +191,6 @@ void keyPressed()
     power+=0.1;
     println(power);
   }
-  if(key == 't')
-  {
-    towers.add( new Towers(mouseX, mouseY, 20));
-  }
 }
 void mousePressed()
 {
@@ -207,7 +203,7 @@ void mousePressed()
     if(dist(mouseX,mouseY,t.xPos,t.yPos) < (t.size/2) && (mouseButton == LEFT) && t.placed && selling)
     {
       t.active = false;
-      money += t.price*0.90;
+      money += t.price * (t.health/t.maxHealth);
     }
   }
   sellingTowers();
@@ -426,7 +422,7 @@ boolean shopStocked( int x )
 void mouseWheel(MouseEvent event)
 {
   float e = event.getCount();
-  if (e > 0  && shopScroll < 8)
+  if (e > 0  && shopScroll < 2)
   {
     shopScroll +=2;
     for(int i = 0; i < towers.size(); i++)

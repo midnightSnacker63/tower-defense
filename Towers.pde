@@ -60,7 +60,7 @@ class Towers
     stroke(1);
     image(towerImage[type],xPos,yPos);
     fill(0);
-    text(int(health),xPos,yPos);
+    text(int(health),xPos,yPos+size/2);
     pop();
     if(health <= 0)//kill it if health is 0
     {

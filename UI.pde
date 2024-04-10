@@ -1,16 +1,16 @@
 class UI
 {
   String towerDescriptions[] = {
-  "basic low damage\n$15 ",
+  "Small Fry, basic low damage\n$15 ",
   "CatFish, moderate stats\n$25 ",
-  "wall, high health\n$50",
-  "cannon, high damage with\nexplosion but slow\n$175",
-  "fast speed but low damage\n$50",
-  "produces money\n$50",
-  "healing wall\n$50",
+  "Coral,doesn't attack but has\nhigh health\n$50",
+  "CannonFish, high damage with\nexplosion but slow\n$175",
+  "ArcherFish,fast speed but low \ndamage\n$50",
+  "SunFish, produces money\n$50",
+  "HeartFish, doesn't attack but has \nmoderate health and \nregenerates health\n$50",
   "pushes back enemies\n$50 ",
-  "mines, they explode if touched\n$30 ",
-  "better producers, they make\nmore money \n$125",
+  "Mines, they explode if touched\n$30 ",
+  "Double SunFish, they make\nmore money \n$125",
   " ",
   " ",
   " ",
@@ -104,4 +104,10 @@ class UI
     }
     pop();
   }
+  
+  void drawStartScreen()
+  {
+    
+  }
+  
 }
