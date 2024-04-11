@@ -82,7 +82,7 @@ void setup()
   towerShotImage[0].resize(boxSize/2, 0);
   towerShotImage[1] = loadImage("yarnBall.png");//moderate
   towerShotImage[1].resize(boxSize/2, 0);
-  towerShotImage[2] = loadImage("cobbleColor.png");//wall
+  towerShotImage[2] = loadImage("dummy.png");//wall
   towerShotImage[2].resize(boxSize/2, 0);
   towerShotImage[3] = loadImage("bomb.png");//cannon
   towerShotImage[3].resize(boxSize/2, 0);
@@ -90,7 +90,7 @@ void setup()
   towerShotImage[4].resize(boxSize/2, 0);
   towerShotImage[5] = loadImage("yellowFishRight.png");//producer
   towerShotImage[5].resize(boxSize/2, 0);
-  towerShotImage[6] = loadImage("heartContainer.png");//healing wall
+  towerShotImage[6] = loadImage("dummy.png");//healing wall
   towerShotImage[6].resize(boxSize/2, 0);
   towerShotImage[7] = loadImage("waterBlast.png");
   towerShotImage[7].resize(boxSize/2, 0);
