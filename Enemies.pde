@@ -17,9 +17,12 @@ class Enemies
   int cooldown = 600;
   int hitTimer;
   int hitCooldown = 100;
+  int shotTimer;
+  int shotCooldown;
   
   boolean active;
   boolean explosive;
+  boolean shoots;
   
   public Enemies(float x, float y, int t)
   {
@@ -82,6 +85,8 @@ class Enemies
     yPos += ySpd;
   }
   
+  
+  
   void setTraits()//set the traits for different enemy types
   {
     switch(type)
@@ -96,19 +101,19 @@ class Enemies
         speed = 1.25 * power;
         damage = 1 * power;
         return;
-      case 2://brute
-        maxHealth = 50 * power;
-        speed = 0.45 * power;
-        cooldown = 3500;
-        damage = 10 * power;
-        knockedBack = 0.3;
-        return;
-      case 3://fast with little health
+      case 2://fast with little health
         maxHealth = 5 * power;
         speed = 3 * power;
         cooldown = 500;
         knockedBack = 5;
         damage = .75 * power;
+        return;
+      case 3://brute
+        maxHealth = 50 * power;
+        speed = 0.5 * power;
+        cooldown = 3500;
+        damage = 10 * power;
+        knockedBack = 0.25;
         return;
       case 4://low health but blow up
         maxHealth = 1 * power;
@@ -118,12 +123,14 @@ class Enemies
         damage = 1 * power;
         explosive = true;
         return;
-      case 5://tbd
-        maxHealth = 10 * power;
-        speed = 1 * power;
-        cooldown = 600;
+      case 5://shoot at towers
+        maxHealth = 25 * power;
+        speed = .95 * power;
+        cooldown = 1000;
         knockedBack = 1;
         damage = 1 * power;
+        shoots = true;
+        shotCooldown = 1500;
         return;
       case 6://tbd
         maxHealth = 10 * power;
@@ -167,6 +174,14 @@ class Enemies
         timer = millis() + cooldown;
         towers.get(i).takeDamage(damage);
       }
+  }
+  void shoot()
+  {
+    if(shoots && onGrid() && millis() > shotTimer)
+    {
+      eShots.add( new EnemyShots(xPos,random(yPos-15,yPos+15),type));
+      shotTimer = millis() + shotCooldown;
+    }
   }
   boolean frontBlocked()//returns true if something is in front of an enemy
   {

@@ -154,7 +154,7 @@ class Towers
     switch(type)
     {
       case 0://basic little thing
-        price = 15;
+        price = 10;
         maxHealth = 10;
         cooldown = 1800;
         maxHealth = 15;
@@ -172,10 +172,10 @@ class Towers
       case 3://cannon (slow with high damage)
         cooldown = 10000;
         maxHealth = 50;
-        price = 175;
+        price = 250;
         return;
       case 4://fast (fast with low damage)
-        cooldown = 450;
+        cooldown = 400;
         maxHealth = 15;
         price = 50;
         return;
@@ -187,9 +187,9 @@ class Towers
         producer = true;
         return;
       case 6://regen walls (less health than normal walls but regen health)
-        cooldown = 2000;
+        cooldown = 1750;
         maxHealth = 50;
-        price = 50;
+        price = 75;
         canAttack = false;
         regen = true;
         return;
@@ -202,7 +202,7 @@ class Towers
         canAttack = false;
         maxHealth = 1;
         explosive = true;
-        price = 30;
+        price = 50;
         return;
       case 9://better producer (makes more money)
         cooldown = 7500;

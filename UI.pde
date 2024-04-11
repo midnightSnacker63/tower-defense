@@ -1,15 +1,15 @@
 class UI
 {
   String towerDescriptions[] = {
-  "Small Fry, basic low damage\n$15 ",
+  "Small Fry, basic low damage\n$10 ",
   "CatFish, moderate stats\n$25 ",
   "Coral,doesn't attack but has\nhigh health\n$50",
-  "CannonFish, high damage with\nexplosion but slow\n$175",
+  "CannonFish, high damage with\nexplosion but slow\n$250",
   "ArcherFish,fast speed but low \ndamage\n$50",
   "SunFish, produces money\n$50",
-  "HeartFish, doesn't attack but has \nmoderate health and \nregenerates health\n$50",
+  "HeartFish, doesn't attack but \nhas moderate health and \nregenerates health\n$75",
   "pushes back enemies\n$50 ",
-  "Mines, they explode if touched\n$30 ",
+  "Mines, they explode if touched\n$50 ",
   "Double SunFish, they make\nmore money \n$125",
   " ",
   " ",

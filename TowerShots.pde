@@ -73,7 +73,7 @@ class TowerShots
         damage = 1;
         speed = 1;
         rotateSpeed = 0.05;
-        knockback = 0.2;
+        knockback = 0.175;
         red = int(random(0,255));
         green = int(random(0,255));
         blue = int(random(0,255));
@@ -90,7 +90,7 @@ class TowerShots
       case 4://fast low damage
         damage = .5;
         speed = 1.5;
-        knockback = 0.2;
+        knockback = 0.175;
         return;
       case 5://producer
         return;

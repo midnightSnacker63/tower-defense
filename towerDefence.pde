@@ -1,5 +1,6 @@
 ArrayList<Towers> towers = new ArrayList<Towers>();
 ArrayList<TowerShots> tShots = new ArrayList<TowerShots>();
+ArrayList<EnemyShots> eShots = new ArrayList<EnemyShots>();
 ArrayList<Enemies> enemies = new ArrayList<Enemies>();
 ArrayList<Explosion> explosion = new ArrayList<Explosion>();
 
@@ -8,7 +9,7 @@ float power = 1;//muliplier for power so enemies get stronger in order to add ch
 int boxSize = 100;
 int life = 100;
 int money = 100;
-int enemyCooldown = 8000;//how long between enemies 
+int enemyCooldown = 7500;//how long between enemies 
 int enemyTimer = enemyCooldown;
 int waveCooldown = 60000;//how long between waves in milliseconds
 int waveTimer = 0;
@@ -22,6 +23,7 @@ boolean selling;
 PImage [] towerImage = new PImage[21];
 PImage [] enemyImage = new PImage[21];
 PImage [] towerShotImage = new PImage[21];
+PImage [] enemyShotImage = new PImage[21];
 
 PImage floorTile;
 PImage warning;
@@ -124,18 +126,21 @@ void setup()
   enemyImage[0].resize(boxSize, 0);
   enemyImage[1] = loadImage("ganon.png");
   enemyImage[1].resize(boxSize, 0);
-  enemyImage[2] = loadImage("dekuScrub.png");//wall
+  enemyImage[2] = loadImage("piranhaLeft.png");
   enemyImage[2].resize(boxSize, 0);
-  enemyImage[3] = loadImage("piranhaLeft.png");
+  enemyImage[3] = loadImage("dekuScrub.png");//wall
   enemyImage[3].resize(boxSize, 0);
   enemyImage[4] = loadImage("bombGuy.png");
   enemyImage[4].resize(boxSize, 0);
-  enemyImage[5] = loadImage("dummy.png");
+  enemyImage[5] = loadImage("PurpleDragon.png");
   enemyImage[5].resize(boxSize, 0);
   enemyImage[6] = loadImage("dummy.png");
   enemyImage[6].resize(boxSize, 0);
   enemyImage[7] = loadImage("dummy.png");
   enemyImage[7].resize(boxSize, 0);
+  
+  enemyShotImage[5] = loadImage("fireCharge.png");
+  enemyShotImage[5].resize(boxSize/2, 0);
   
   explosionPic = loadImage("explosion.png");
   
@@ -151,9 +156,9 @@ void draw()
   handleEnemies();
   handleTowers();
   handleTowerShot();
+  handleEnemyShots();
   handleExplosions();
   handleForeground();
-
 }
 void keyPressed()
 {
@@ -190,6 +195,14 @@ void keyPressed()
   {
     power+=0.1;
     println(power);
+  }
+  if(key == '2')
+  {
+    difficulty ++;
+  }
+  if(key == '1')
+  {
+    difficulty --;
   }
 }
 void mousePressed()
@@ -279,21 +292,22 @@ void handleEnemies()
     e.drawEnemies();
     e.moveEnemies();
     e.hitTowers();
+    e.shoot();
   }
   
   if(millis() > enemyTimer && life > 0)//enemy spawn timer
   {
     enemies.add(new Enemies(width + random(50,100),random(0,height-boxSize),int(random(0,difficulty))));
     enemyTimer = millis() + enemyCooldown;
-    if(enemyCooldown > 750)//shorten timer making enemies spawn faster
+    if(enemyCooldown > 1000)//shorten timer making enemies spawn faster
     {
       enemyCooldown -= enemyCooldown / 50;
       println(enemyCooldown);
     }
-    else if(enemyCooldown <= 750 && difficulty < 8)//increases difficulty whenever the timer is too fast
+    else if(enemyCooldown <= 1000 && difficulty < 8)//increases difficulty whenever the timer is too fast
     {
       println("increasing difficulty, current time" + millis()/1000);
-      enemyCooldown = 8000;
+      enemyCooldown = 7000;
       difficulty += 1;
     }
     if( difficulty >= 8)
@@ -343,6 +357,23 @@ void handleTowerShot()
     if(!tShots.get(i).active)
     {
       tShots.remove(i);
+    }
+  }
+}
+
+void handleEnemyShots()
+{
+  for(EnemyShots e: eShots)
+ {
+   e.moveShot();
+   e.drawShot();
+   e.checkForHit();
+ }
+ for(int i = 0; i < eShots.size(); i++)//removes when not active
+  {
+    if(!eShots.get(i).active)
+    {
+      eShots.remove(i);
     }
   }
 }
