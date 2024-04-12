@@ -6,6 +6,7 @@ class Enemies
   float maxHealth = 10;
   float health = maxHealth;
   float speed = 1;
+  float normalSpeed = speed;
   float knockedBack = 1;//how much they get knocked back by shots
   float damage = 1;
   float armourHealth;
@@ -14,15 +15,21 @@ class Enemies
   int type;
   
   int timer;
-  int cooldown = 600;
-  int hitTimer;
+  int cooldown = 600;//how fast they attack
+  int normalCooldown = cooldown;
+  int hitTimer;// for when they get hit by bombs
   int hitCooldown = 100;
-  int shotTimer;
+  int shotTimer;//how fast they shoot if they do
   int shotCooldown;
+  int slowedTimer;
+  int red = 255;
+  int green = 255;
+  int blue = 255;
   
   boolean active;
   boolean explosive;
   boolean shoots;
+  boolean slowed;
   
   public Enemies(float x, float y, int t)
   {
@@ -33,6 +40,8 @@ class Enemies
     active = true;
     yPos = round(int(y) / int(size)) * size + size/2;//snap to the y axis
     setTraits();
+    normalSpeed = speed;
+    normalCooldown = cooldown;
     health = maxHealth;
   }
   
@@ -46,6 +55,7 @@ class Enemies
     {
       push();
       fill(200,10,10);
+      tint(red,green,blue);
       image(enemyImage[type],xPos,yPos);
       fill(0);
       text(int(health),xPos,yPos);
@@ -76,6 +86,25 @@ class Enemies
         life = 0;
       
       active = false;
+    }
+    
+    if(slowed && speed == normalSpeed)//for when they are slowed
+    {
+      red = 150;
+      green = 150;
+      speed = speed/2;
+      cooldown *=2;
+    }
+    else if(!slowed)
+    {
+      speed = normalSpeed;
+      red = 255;
+      green = 255;
+      cooldown = normalCooldown;
+    }
+    if(millis() > slowedTimer)
+    {
+      slowed = false;
     }
     
     xSpd *= 0.97;
@@ -124,7 +153,7 @@ class Enemies
         explosive = true;
         return;
       case 5://shoot at towers
-        maxHealth = 25 * power;
+        maxHealth = 20 * power;
         speed = .95 * power;
         cooldown = 1000;
         knockedBack = 1;

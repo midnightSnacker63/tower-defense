@@ -63,7 +63,7 @@ void setup()
   towerImage[8].resize(boxSize, 0);
   towerImage[9] = loadImage("twoYellowFish.png");
   towerImage[9].resize(boxSize, 0);
-  towerImage[10] = loadImage("dummy.png");
+  towerImage[10] = loadImage("iceCubeFish.png");
   towerImage[10].resize(boxSize, 0);
   towerImage[11] = loadImage("dummy.png");
   towerImage[11].resize(boxSize, 0);
@@ -94,11 +94,11 @@ void setup()
   towerShotImage[6].resize(boxSize/2, 0);
   towerShotImage[7] = loadImage("waterBlast.png");
   towerShotImage[7].resize(boxSize/2, 0);
-  towerShotImage[8] = loadImage("dummy.png");
+  towerShotImage[8] = loadImage("dummy.png");//mine
   towerShotImage[8].resize(boxSize/2, 0);
-  towerShotImage[9] = loadImage("dummy.png");
+  towerShotImage[9] = loadImage("dummy.png");//better producer
   towerShotImage[9].resize(boxSize/2, 0);
-  towerShotImage[10] = loadImage("dummy.png");
+  towerShotImage[10] = loadImage("iceCube.png");//slow down
   towerShotImage[10].resize(boxSize/2, 0);
   towerShotImage[11] = loadImage("dummy.png");
   towerShotImage[11].resize(boxSize/2, 0);
@@ -110,7 +110,6 @@ void setup()
   towerShotImage[14].resize(boxSize/2, 0);
   towerShotImage[15] = loadImage("dummy.png");
   towerShotImage[15].resize(boxSize/2, 0);
-  
   towerShotImage[16] = loadImage("dummy.png");
   towerShotImage[16].resize(boxSize/2, 0);
   towerShotImage[17] = loadImage("dummy.png");
@@ -453,7 +452,7 @@ boolean shopStocked( int x )
 void mouseWheel(MouseEvent event)
 {
   float e = event.getCount();
-  if (e > 0  && shopScroll < 2)
+  if (e > 0  && shopScroll < 4)
   {
     shopScroll +=2;
     for(int i = 0; i < towers.size(); i++)

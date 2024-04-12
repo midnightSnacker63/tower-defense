@@ -73,8 +73,6 @@ class EnemyShots
       case 3:
         return;
       case 4:
-        damage = 1;
-        speed = 1;
         return;
       case 5:
         damage = 1;

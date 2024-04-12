@@ -11,7 +11,7 @@ class UI
   "pushes back enemies\n$50 ",
   "Mines, they explode if touched\n$50 ",
   "Double SunFish, they make\nmore money \n$125",
-  " ",
+  "IceFish, slows enemies\n$75 ",
   " ",
   " ",
   " ",

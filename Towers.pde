@@ -155,7 +155,6 @@ class Towers
     {
       case 0://basic little thing
         price = 10;
-        maxHealth = 10;
         cooldown = 1800;
         maxHealth = 15;
         return;
@@ -211,6 +210,11 @@ class Towers
         price = 125;
         canAttack = false;
         producer = true;
+        return;
+      case 10://icecube fish
+        maxHealth = 25;
+        cooldown = 1500;
+        price = 75;
         return;
         
       case 20://

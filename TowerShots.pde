@@ -14,9 +14,11 @@ class TowerShots
   int red = 255;
   int green = 255;
   int blue = 255;
+  int freezeTime;
   
   boolean active;
   boolean explosive;
+  boolean cold;
   public TowerShots( float x, float y , int t)
   {
     xPos = x;
@@ -101,6 +103,18 @@ class TowerShots
         speed = 1;
         knockback = 3;
         return;
+      case 8://mine
+        return;
+      case 9://better producer
+        return;
+      case 10://cold
+        damage = 1;
+        speed = 1;
+        knockback = 0.1;
+        rotateSpeed = 0.1;
+        cold = true;
+        freezeTime = 2500;
+        return;
     }
   }
   void checkForHit()//allows it to hit enemies
@@ -110,6 +124,12 @@ class TowerShots
         if( dist( xPos,yPos, enemies.get(i).xPos,enemies.get(i).yPos ) < (size+enemies.get(i).size)/2 && active  )
         {
           enemies.get(i).takeDamage(damage, knockback);
+          
+          if(cold)
+          {
+            enemies.get(i).slowed = true;
+            enemies.get(i).slowedTimer = millis() + freezeTime;
+          }
           if(explosive)
           {
             explosion.add(new Explosion(xPos,yPos,0));
