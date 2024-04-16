@@ -84,6 +84,8 @@ class UI
       fill(#835B10);
       rect(x,y,120,120,25);
       image(towerImage[i+shopScroll],x,y);//the tower images in shop
+      fill(0);
+      text(shopTimer[i+shopScroll],x,y+50);
       pop();
       if(dist(mouseX,mouseY,x,y) < boxSize/2)//displays tower descriptions when hovering over in shop
       {

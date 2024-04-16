@@ -213,7 +213,7 @@ class Towers
         return;
       case 10://icecube fish
         maxHealth = 25;
-        cooldown = 1500;
+        cooldown = 1250;
         price = 75;
         return;
         

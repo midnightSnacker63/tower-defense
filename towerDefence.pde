@@ -16,6 +16,8 @@ int waveTimer = 0;
 int wave;//how many waves have passed
 int difficulty = 1;//as time goes by this will increase, starts at 1
 int shopScroll;
+int shopCooldown[] = {0,1,2,3,4,5,6,7,8,9,10,110};
+int shopTimer[] = {0,1,2,3,4,5,6,7,8,9,10,11};
 
 boolean gameStarted;
 boolean selling;
@@ -158,6 +160,7 @@ void draw()
   handleEnemyShots();
   handleExplosions();
   handleForeground();
+  handleShop();
 }
 void keyPressed()
 {
@@ -226,13 +229,14 @@ void mouseReleased()
   {
     for(int i = 0; i < towers.size(); i++)
     {
-      if(money >= towers.get(i).price && !towers.get(i).bought && towers.get(i).grabbed && mouseOnGrid() && towers.get(i).onGrid())//buys towers
+      if(money >= towers.get(i).price && !towers.get(i).bought && towers.get(i).grabbed && mouseOnGrid() && towers.get(i).onGrid() )//buys towers
       {
         money -= towers.get(i).price;
         towers.get(i).produceTimer = millis() + towers.get(i).produceCooldown;
         towers.get(i).bought = true;
         towers.get(i).placed = true;
         selling = false;
+       
       }
       else if( !towers.get(i).bought && towers.get(i).grabbed && !mouseOnGrid())//removes tower if not bought and not on the board
       {
@@ -242,6 +246,17 @@ void mouseReleased()
       }
     }
     t.grabbed = false;
+  }
+}
+
+void handleShop()
+{
+  for(int i = 0; i < 12; i++)
+  {
+    if(millis() > shopTimer[i])
+    {
+      shopTimer[i] = millis() + shopCooldown[i];
+    }
   }
 }
 void handleTowers()
@@ -256,6 +271,7 @@ void handleTowers()
     t.produce();
     t.regenHealth();
   }
+  
   for(int i = 0; i < towers.size(); i++)
   {
     if(!towers.get(i).active)
@@ -269,9 +285,10 @@ void handleTowers()
         int x = (width-225)+(j%2*150);
         int y = 180+(150*(j/2));
         towers.add( new Towers(x, y, j+shopScroll));
-
+        
       }
     }
+    
   }
 }
 void handleBackground()
@@ -300,13 +317,13 @@ void handleEnemies()
     enemyTimer = millis() + enemyCooldown;
     if(enemyCooldown > 1000)//shorten timer making enemies spawn faster
     {
-      enemyCooldown -= enemyCooldown / 50;
+      enemyCooldown -= enemyCooldown / 45;
       println(enemyCooldown);
     }
     else if(enemyCooldown <= 1000 && difficulty < 8)//increases difficulty whenever the timer is too fast
     {
       println("increasing difficulty, current time" + millis()/1000);
-      enemyCooldown = 7000;
+      enemyCooldown = 7500;
       difficulty += 1;
     }
     if( difficulty >= 8)
