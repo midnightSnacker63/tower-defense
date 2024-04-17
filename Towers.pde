@@ -31,6 +31,7 @@ class Towers
   boolean placed;
   boolean explosive;
   boolean temporary;
+  //boolean inShop;
 
   
   public Towers(float x,float y, int t)
@@ -61,6 +62,7 @@ class Towers
     image(towerImage[type],xPos,yPos);
     fill(0);
     text(int(health),xPos,yPos+size/2);
+    text(inShop(1)+"",xPos,yPos);
     pop();
     if(health <= 0)//kill it if health is 0
     {
@@ -94,6 +96,7 @@ class Towers
     
     xPos += xSpd;
     yPos += ySpd;
+    
   }
   
   
@@ -266,4 +269,19 @@ class Towers
     }
     return false;
   }
+  boolean inShop( int x )
+  {
+  
+  for(int i = 0; i < 8; i++)
+  {
+    int X = (width-225)+(x%2*150);
+    int Y = 180+(150*(x/2));
+    if(xPos == X && yPos == Y && !bought)
+    {
+      x++;
+      return true;
+    }
+  }
+  return false;
+}
 }

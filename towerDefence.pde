@@ -16,8 +16,8 @@ int waveTimer = 0;
 int wave;//how many waves have passed
 int difficulty = 1;//as time goes by this will increase, starts at 1
 int shopScroll;
-int shopCooldown[] = {0,1,2,3,4,5,6,7,8,9,10,110};
-int shopTimer[] = {0,1,2,3,4,5,6,7,8,9,10,11};
+int shopCooldown[] = {0,1,2,3,4,5,6,7,8,9,10,110,0,0,0,0};
+int shopTimer[] = {0,1,2,3,4,5,6,7,8,9,10,11,0,0,0,0};
 
 boolean gameStarted;
 boolean selling;
@@ -211,14 +211,17 @@ void mousePressed()
 {
   for(Towers t: towers)
   {
-    if(dist(mouseX,mouseY,t.xPos,t.yPos) < (t.size/2) && (mouseButton == LEFT) && !t.placed)//grabbing towers
+    for(int i = 0; i < 8; i++)
     {
-      t.grabbed = true;
-    }
-    if(dist(mouseX,mouseY,t.xPos,t.yPos) < (t.size/2) && (mouseButton == LEFT) && t.placed && selling)
-    {
-      t.active = false;
-      money += t.price * (t.health/t.maxHealth);
+      if(dist(mouseX,mouseY,t.xPos,t.yPos) < (t.size/2) && (mouseButton == LEFT) && !t.placed && t.inShop(i))//grabbing towers
+      {
+        t.grabbed = true;
+      }
+      if(dist(mouseX,mouseY,t.xPos,t.yPos) < (t.size/2) && (mouseButton == LEFT) && t.placed && selling)
+      {
+        t.active = false;
+        money += t.price * (t.health/t.maxHealth);
+      }
     }
   }
   sellingTowers();
@@ -255,7 +258,7 @@ void handleShop()
   {
     if(millis() > shopTimer[i])
     {
-      shopTimer[i] = millis() + shopCooldown[i];
+      //shopTimer[i] = millis() + shopCooldown[i];
     }
   }
 }
@@ -272,24 +275,27 @@ void handleTowers()
     t.regenHealth();
   }
   
+  
   for(int i = 0; i < towers.size(); i++)
   {
     if(!towers.get(i).active)
     {
       towers.remove(i);
     }
-    for(int j = 0; j < 8; j++)
+    for(int j = 0; j < 12; j++)
     {
       if(!shopStocked(j) && (mouseButton != LEFT))//restocks shop
       {
         int x = (width-225)+(j%2*150);
         int y = 180+(150*(j/2));
         towers.add( new Towers(x, y, j+shopScroll));
-        
+        shopTimer[j+shopScroll] = millis() + shopCooldown[j+shopScroll];
+        println(j+shopScroll);
       }
     }
     
   }
+  
 }
 void handleBackground()
 {
@@ -456,16 +462,19 @@ boolean shopStocked( int x )
 {
   for(int i = 0; i < towers.size(); i++)
   {
-      int X = (width-225)+(x%2*150);
-      int Y = 180+(150*(x/2));
-      if(towers.get(i).xPos == X && towers.get(i).yPos == Y && !towers.get(i).bought)
-      {
-        x++;
-        return true;
-      }
+    int X = (width-225)+(x%2*150);
+    int Y = 180+(150*(x/2));
+    if(towers.get(i).xPos == X && towers.get(i).yPos == Y && !towers.get(i).bought)
+    {
+      x++;
+
+      return true;
+    }
   }
   return false;
 }
+
+
 void mouseWheel(MouseEvent event)
 {
   float e = event.getCount();
@@ -476,7 +485,7 @@ void mouseWheel(MouseEvent event)
     {
       if(!towers.get(i).bought)
       {
-        towers.get(i).active = false;
+        towers.get(i).yPos-=150;
       }
     }
   }
@@ -487,7 +496,7 @@ void mouseWheel(MouseEvent event)
     {
       if(!towers.get(i).bought)
       {
-        towers.get(i).active = false;
+        towers.get(i).yPos+=150; 
       }
     }
   }
