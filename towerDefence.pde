@@ -1,3 +1,13 @@
+/****************************
+
+     tower defence game
+
+*****************************/
+
+import processing.sound.*;
+
+SoundFile test;
+
 ArrayList<Towers> towers = new ArrayList<Towers>();
 ArrayList<TowerShots> tShots = new ArrayList<TowerShots>();
 ArrayList<EnemyShots> eShots = new ArrayList<EnemyShots>();
@@ -41,115 +51,9 @@ void setup()
   size(1200,800);
   imageMode(CENTER);
   UI = new UI();
-  //noSmooth();
-  //fullScreen();
-  //noStroke();
   towers.add( new Towers(width - 225, 180,0));//do not remove this, it will mess up the shop
-  towerImage[0] = loadImage("smallFry.png");//basic
-  towerImage[0].resize(boxSize, 0);
-  towerImage[1] = loadImage("CatFish.png");
-  towerImage[1].resize(boxSize, 0);
-  towerImage[2] = loadImage("coral.png");//wall
-  towerImage[2].resize(boxSize, 0);
-  towerImage[3] = loadImage("cannonFish.png");
-  towerImage[3].resize(boxSize, 0);
-  towerImage[4] = loadImage("blueFish.png");
-  towerImage[4].resize(boxSize, 0);
-  towerImage[5] = loadImage("yellowFishRight.png");
-  towerImage[5].resize(boxSize, 0);
-  towerImage[6] = loadImage("heartFish.png");
-  towerImage[6].resize(boxSize, 0);
-  towerImage[7] = loadImage("arrow.png");
-  towerImage[7].resize(boxSize, 0);
-  towerImage[8] = loadImage("waterMine.png");
-  towerImage[8].resize(boxSize, 0);
-  towerImage[9] = loadImage("twoYellowFish.png");
-  towerImage[9].resize(boxSize, 0);
-  towerImage[10] = loadImage("iceCubeFish.png");
-  towerImage[10].resize(boxSize, 0);
-  towerImage[11] = loadImage("dummy.png");
-  towerImage[11].resize(boxSize, 0);
-  towerImage[12] = loadImage("dummy.png");
-  towerImage[12].resize(boxSize, 0);
-  towerImage[13] = loadImage("dummy.png");
-  towerImage[13].resize(boxSize, 0);
-  towerImage[14] = loadImage("dummy.png");
-  towerImage[14].resize(boxSize, 0);
-  towerImage[15] = loadImage("dummy.png");
-  towerImage[15].resize(boxSize, 0);
-  towerImage[20] = loadImage("dummy.png");
-  towerImage[20].resize(boxSize, 0);
-  
-  towerShotImage[0] = loadImage("waterDropShot.png");//basic
-  towerShotImage[0].resize(boxSize/2, 0);
-  towerShotImage[1] = loadImage("yarnBall.png");//moderate
-  towerShotImage[1].resize(boxSize/2, 0);
-  towerShotImage[2] = loadImage("dummy.png");//wall
-  towerShotImage[2].resize(boxSize/2, 0);
-  towerShotImage[3] = loadImage("bomb.png");//cannon
-  towerShotImage[3].resize(boxSize/2, 0);
-  towerShotImage[4] = loadImage("arrowRight.png");//fast
-  towerShotImage[4].resize(boxSize/2, 0);
-  towerShotImage[5] = loadImage("yellowFishRight.png");//producer
-  towerShotImage[5].resize(boxSize/2, 0);
-  towerShotImage[6] = loadImage("dummy.png");//healing wall
-  towerShotImage[6].resize(boxSize/2, 0);
-  towerShotImage[7] = loadImage("waterBlast.png");
-  towerShotImage[7].resize(boxSize/2, 0);
-  towerShotImage[8] = loadImage("dummy.png");//mine
-  towerShotImage[8].resize(boxSize/2, 0);
-  towerShotImage[9] = loadImage("dummy.png");//better producer
-  towerShotImage[9].resize(boxSize/2, 0);
-  towerShotImage[10] = loadImage("iceCube.png");//slow down
-  towerShotImage[10].resize(boxSize/2, 0);
-  towerShotImage[11] = loadImage("dummy.png");
-  towerShotImage[11].resize(boxSize/2, 0);
-  towerShotImage[12] = loadImage("dummy.png");
-  towerShotImage[12].resize(boxSize/2, 0);
-  towerShotImage[13] = loadImage("dummy.png");
-  towerShotImage[13].resize(boxSize/2, 0);
-  towerShotImage[14] = loadImage("dummy.png");
-  towerShotImage[14].resize(boxSize/2, 0);
-  towerShotImage[15] = loadImage("dummy.png");
-  towerShotImage[15].resize(boxSize/2, 0);
-  towerShotImage[16] = loadImage("dummy.png");
-  towerShotImage[16].resize(boxSize/2, 0);
-  towerShotImage[17] = loadImage("dummy.png");
-  towerShotImage[17].resize(boxSize/2, 0);
-  towerShotImage[18] = loadImage("dummy.png");
-  towerShotImage[18].resize(boxSize/2, 0);
-  towerShotImage[19] = loadImage("dummy.png");
-  towerShotImage[19].resize(boxSize/2, 0);
-  towerShotImage[20] = loadImage("dummy.png");
-  towerShotImage[20].resize(boxSize/2, 0);
-  
-  enemyImage[0] = loadImage("keese.png");//basic
-  enemyImage[0].resize(boxSize, 0);
-  enemyImage[1] = loadImage("ganon.png");
-  enemyImage[1].resize(boxSize, 0);
-  enemyImage[2] = loadImage("piranhaLeft.png");
-  enemyImage[2].resize(boxSize, 0);
-  enemyImage[3] = loadImage("dekuScrub.png");//wall
-  enemyImage[3].resize(boxSize, 0);
-  enemyImage[4] = loadImage("bombGuy.png");
-  enemyImage[4].resize(boxSize, 0);
-  enemyImage[5] = loadImage("PurpleDragon.png");
-  enemyImage[5].resize(boxSize, 0);
-  enemyImage[6] = loadImage("dummy.png");
-  enemyImage[6].resize(boxSize, 0);
-  enemyImage[7] = loadImage("dummy.png");
-  enemyImage[7].resize(boxSize, 0);
-  
-  enemyShotImage[5] = loadImage("fireCharge.png");
-  enemyShotImage[5].resize(boxSize/2, 0);
-  
-  explosionPic = loadImage("explosion.png");
-  
-  floorTile = loadImage("waterTile2.png");
-  floorTile.resize(boxSize,0);
-  
-  warning = loadImage("warningIcon.png");
-  warning.resize(int(boxSize*0.85),0);
+  loadImages();
+  loadSounds();
 }
 void draw()
 {
@@ -501,4 +405,118 @@ void mouseWheel(MouseEvent event)
     }
   }
   
+}
+
+void loadImages()
+{
+  towerImage[0] = loadImage("smallFry.png");//basic
+  towerImage[0].resize(boxSize, 0);
+  towerImage[1] = loadImage("CatFish.png");
+  towerImage[1].resize(boxSize, 0);
+  towerImage[2] = loadImage("coral.png");//wall
+  towerImage[2].resize(boxSize, 0);
+  towerImage[3] = loadImage("cannonFish.png");
+  towerImage[3].resize(boxSize, 0);
+  towerImage[4] = loadImage("blueFish.png");
+  towerImage[4].resize(boxSize, 0);
+  towerImage[5] = loadImage("yellowFishRight.png");
+  towerImage[5].resize(boxSize, 0);
+  towerImage[6] = loadImage("heartFish.png");
+  towerImage[6].resize(boxSize, 0);
+  towerImage[7] = loadImage("arrow.png");
+  towerImage[7].resize(boxSize, 0);
+  towerImage[8] = loadImage("waterMine.png");
+  towerImage[8].resize(boxSize, 0);
+  towerImage[9] = loadImage("twoYellowFish.png");
+  towerImage[9].resize(boxSize, 0);
+  towerImage[10] = loadImage("iceCubeFish.png");
+  towerImage[10].resize(boxSize, 0);
+  towerImage[11] = loadImage("dummy.png");
+  towerImage[11].resize(boxSize, 0);
+  towerImage[12] = loadImage("dummy.png");
+  towerImage[12].resize(boxSize, 0);
+  towerImage[13] = loadImage("dummy.png");
+  towerImage[13].resize(boxSize, 0);
+  towerImage[14] = loadImage("dummy.png");
+  towerImage[14].resize(boxSize, 0);
+  towerImage[15] = loadImage("dummy.png");
+  towerImage[15].resize(boxSize, 0);
+  towerImage[20] = loadImage("dummy.png");
+  towerImage[20].resize(boxSize, 0);
+  
+  towerShotImage[0] = loadImage("waterDropShot.png");//basic
+  towerShotImage[0].resize(boxSize/2, 0);
+  towerShotImage[1] = loadImage("yarnBall.png");//moderate
+  towerShotImage[1].resize(boxSize/2, 0);
+  towerShotImage[2] = loadImage("dummy.png");//wall
+  towerShotImage[2].resize(boxSize/2, 0);
+  towerShotImage[3] = loadImage("bomb.png");//cannon
+  towerShotImage[3].resize(boxSize/2, 0);
+  towerShotImage[4] = loadImage("arrowRight.png");//fast
+  towerShotImage[4].resize(boxSize/2, 0);
+  towerShotImage[5] = loadImage("yellowFishRight.png");//producer
+  towerShotImage[5].resize(boxSize/2, 0);
+  towerShotImage[6] = loadImage("dummy.png");//healing wall
+  towerShotImage[6].resize(boxSize/2, 0);
+  towerShotImage[7] = loadImage("waterBlast.png");
+  towerShotImage[7].resize(boxSize/2, 0);
+  towerShotImage[8] = loadImage("dummy.png");//mine
+  towerShotImage[8].resize(boxSize/2, 0);
+  towerShotImage[9] = loadImage("dummy.png");//better producer
+  towerShotImage[9].resize(boxSize/2, 0);
+  towerShotImage[10] = loadImage("iceCube.png");//slow down
+  towerShotImage[10].resize(boxSize/2, 0);
+  towerShotImage[11] = loadImage("dummy.png");
+  towerShotImage[11].resize(boxSize/2, 0);
+  towerShotImage[12] = loadImage("dummy.png");
+  towerShotImage[12].resize(boxSize/2, 0);
+  towerShotImage[13] = loadImage("dummy.png");
+  towerShotImage[13].resize(boxSize/2, 0);
+  towerShotImage[14] = loadImage("dummy.png");
+  towerShotImage[14].resize(boxSize/2, 0);
+  towerShotImage[15] = loadImage("dummy.png");
+  towerShotImage[15].resize(boxSize/2, 0);
+  towerShotImage[16] = loadImage("dummy.png");
+  towerShotImage[16].resize(boxSize/2, 0);
+  towerShotImage[17] = loadImage("dummy.png");
+  towerShotImage[17].resize(boxSize/2, 0);
+  towerShotImage[18] = loadImage("dummy.png");
+  towerShotImage[18].resize(boxSize/2, 0);
+  towerShotImage[19] = loadImage("dummy.png");
+  towerShotImage[19].resize(boxSize/2, 0);
+  towerShotImage[20] = loadImage("dummy.png");
+  towerShotImage[20].resize(boxSize/2, 0);
+  
+  enemyImage[0] = loadImage("keese.png");//basic
+  enemyImage[0].resize(boxSize, 0);
+  enemyImage[1] = loadImage("ganon.png");
+  enemyImage[1].resize(boxSize, 0);
+  enemyImage[2] = loadImage("piranhaLeft.png");
+  enemyImage[2].resize(boxSize, 0);
+  enemyImage[3] = loadImage("dekuScrub.png");//wall
+  enemyImage[3].resize(boxSize, 0);
+  enemyImage[4] = loadImage("bombGuy.png");
+  enemyImage[4].resize(boxSize, 0);
+  enemyImage[5] = loadImage("PurpleDragon.png");
+  enemyImage[5].resize(boxSize, 0);
+  enemyImage[6] = loadImage("dummy.png");
+  enemyImage[6].resize(boxSize, 0);
+  enemyImage[7] = loadImage("dummy.png");
+  enemyImage[7].resize(boxSize, 0);
+  
+  enemyShotImage[5] = loadImage("fireCharge.png");
+  enemyShotImage[5].resize(boxSize/2, 0);
+  
+  explosionPic = loadImage("explosion.png");
+  
+  floorTile = loadImage("waterTile2.png");
+  floorTile.resize(boxSize,0);
+  
+  warning = loadImage("warningIcon.png");
+  warning.resize(int(boxSize*0.85),0);
+}
+
+void loadSounds()
+{
+  //test = new SoundFile(this, "coins.wav");
 }
