@@ -62,7 +62,7 @@ class Towers
     image(towerImage[type],xPos,yPos);
     fill(0);
     text(int(health),xPos,yPos+size/2);
-    text(inShop(1)+"",xPos,yPos);
+    //text(inShop(1)+"",xPos,yPos);
     pop();
     if(health <= 0)//kill it if health is 0
     {
@@ -102,11 +102,12 @@ class Towers
   
   void attack()//method for attacking
   {
-    if(enemyAhead() && canAttack && bought && millis() > timer)
+    if( millis() > timer && enemyAhead() && canAttack && bought )
     {
       timer = millis() + cooldown;
       attacking = true;
       tShots.add( new TowerShots(xPos,random(yPos-15,yPos+15),type));
+      return;
     }
     else 
       attacking = false;
@@ -255,8 +256,19 @@ class Towers
   boolean enemyAhead()//returns true if an enemy is up ahead and on the board
   {
     for( int i = 0; i < enemies.size(); i++ )
-      if( enemies.get(i).yPos == yPos && enemies.get(i).xPos >= xPos && enemies.get(i).onGrid() )
+    {
+      if( enemies.get(i).yPos == yPos && enemies.get(i).xPos >= xPos && enemies.get(i).onGrid())
+      {
         return true;
+      }
+    }
+    for(int i = 0; i < boss.size(); i++)
+    {
+      if(boss.get(i).onGrid() && abs(yPos - boss.get(i).yPos) < boss.get(i).size/1.5)
+      {
+        return true;
+      }
+    }
     return false;
   }
   

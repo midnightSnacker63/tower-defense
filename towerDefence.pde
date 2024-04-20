@@ -3,7 +3,6 @@
      tower defence game
 
 *****************************/
-
 import processing.sound.*;
 
 SoundFile test;
@@ -13,10 +12,11 @@ ArrayList<TowerShots> tShots = new ArrayList<TowerShots>();
 ArrayList<EnemyShots> eShots = new ArrayList<EnemyShots>();
 ArrayList<Enemies> enemies = new ArrayList<Enemies>();
 ArrayList<Explosion> explosion = new ArrayList<Explosion>();
+ArrayList<Boss> boss = new ArrayList<Boss>();
 
 float power = 1;//muliplier for power so enemies get stronger in order to add challenge
 
-int boxSize = 100;
+int boxSize = 100;//the size of the tiles
 int life = 100;
 int money = 100;
 int enemyCooldown = 7500;//how long between enemies 
@@ -25,17 +25,19 @@ int waveCooldown = 60000;//how long between waves in milliseconds
 int waveTimer = 0;
 int wave;//how many waves have passed
 int difficulty = 1;//as time goes by this will increase, starts at 1
-int shopScroll;
-int shopCooldown[] = {0,1,2,3,4,5,6,7,8,9,10,110,0,0,0,0};
+int shopScroll;//how much you have scrolled through the shop
+int shopCooldown[] = {1000,2500,5000,15000,2500,2000,5000,3000,7500,10000,5000,110,0,0,0,0};// the buying cooldown for the towers in the shop
 int shopTimer[] = {0,1,2,3,4,5,6,7,8,9,10,11,0,0,0,0};
 
 boolean gameStarted;
-boolean selling;
+boolean selling;//if true then towers will be sold upon clicking them 
 
 PImage [] towerImage = new PImage[21];
 PImage [] enemyImage = new PImage[21];
 PImage [] towerShotImage = new PImage[21];
 PImage [] enemyShotImage = new PImage[21];
+PImage [] bossImage = new PImage[2];
+
 
 PImage floorTile;
 PImage warning;
@@ -59,6 +61,7 @@ void draw()
 {
   handleBackground();
   handleEnemies();
+  handleBoss();
   handleTowers();
   handleTowerShot();
   handleEnemyShots();
@@ -71,6 +74,10 @@ void keyPressed()
   if(key == 'e')
   {
     enemies.add(new Enemies(mouseX,mouseY,int(random(0,difficulty))));
+  }
+  if(key == 'b')
+  {
+    boss.add(new Boss(mouseX,mouseY,0));
   }
   if(key == 'E')//wave
   {
@@ -115,7 +122,7 @@ void mousePressed()
 {
   for(Towers t: towers)
   {
-    for(int i = 0; i < 8; i++)
+    for(int i = 0; i < towers.size(); i++)
     {
       if(dist(mouseX,mouseY,t.xPos,t.yPos) < (t.size/2) && (mouseButton == LEFT) && !t.placed && t.inShop(i))//grabbing towers
       {
@@ -124,7 +131,9 @@ void mousePressed()
       if(dist(mouseX,mouseY,t.xPos,t.yPos) < (t.size/2) && (mouseButton == LEFT) && t.placed && selling)
       {
         t.active = false;
+        println(t.price * (t.health/t.maxHealth));
         money += t.price * (t.health/t.maxHealth);
+        return;
       }
     }
   }
@@ -197,7 +206,6 @@ void handleTowers()
         println(j+shopScroll);
       }
     }
-    
   }
   
 }
@@ -318,10 +326,26 @@ void handleExplosions()
   } 
 }
 
+void handleBoss()
+{
+  for(Boss b: boss)
+  {
+    b.drawBoss();
+    b.moveBoss();
+  }
+  for(int i = 0; i < boss.size(); i++)
+  {
+    if(!boss.get(i).active)
+    {
+      boss.remove(i);
+    }
+  }
+}
+
 void sendWave( int amount )//sends a wave of enemies based on the given number
 {
   for(int i = 0; i < amount; i++)
-    enemies.add(new Enemies(width + random(50,750),random(0,height-boxSize),int(random(0,difficulty))));
+    enemies.add(new Enemies(width + random(0,750),random(0,height-boxSize),int(random(0,difficulty))));
 }
 
 void sellingTowers()
@@ -506,6 +530,9 @@ void loadImages()
   
   enemyShotImage[5] = loadImage("fireCharge.png");
   enemyShotImage[5].resize(boxSize/2, 0);
+  
+  bossImage[0] = loadImage("EarlPumpernickel.png");
+  bossImage[0].resize(boxSize*4,0);
   
   explosionPic = loadImage("explosion.png");
   

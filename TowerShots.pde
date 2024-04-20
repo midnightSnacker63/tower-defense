@@ -120,22 +120,35 @@ class TowerShots
   void checkForHit()//allows it to hit enemies
   {
     for( int i = 0; i < enemies.size(); i++ )
+    {
+      if( dist( xPos,yPos, enemies.get(i).xPos,enemies.get(i).yPos ) < (size+enemies.get(i).size)/2 && active  )
       {
-        if( dist( xPos,yPos, enemies.get(i).xPos,enemies.get(i).yPos ) < (size+enemies.get(i).size)/2 && active  )
+        enemies.get(i).takeDamage(damage, knockback);
+        
+        if(cold)
         {
-          enemies.get(i).takeDamage(damage, knockback);
-          
-          if(cold)
-          {
-            enemies.get(i).slowed = true;
-            enemies.get(i).slowedTimer = millis() + freezeTime;
-          }
-          if(explosive)
-          {
-            explosion.add(new Explosion(xPos,yPos,0));
-          }
-          active = false;
+          enemies.get(i).slowed = true;
+          enemies.get(i).slowedTimer = millis() + freezeTime;
         }
+        if(explosive)
+        {
+          explosion.add(new Explosion(xPos,yPos,0));
+        }
+        active = false;
       }
+    }
+      
+    for(int i = 0; i < boss.size(); i++)
+    {
+      if( dist( xPos,yPos, boss.get(i).xPos,boss.get(i).yPos ) < (size+boss.get(i).size)/1.6 && active  )
+      {
+        boss.get(i).takeDamage(damage);
+        if(explosive)
+        {
+          explosion.add(new Explosion(xPos,yPos,0));
+        }
+        active = false;
+      }      
+    }
   }
 }

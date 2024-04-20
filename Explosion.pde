@@ -84,6 +84,14 @@ class Explosion
         towers.get(i).hitTimer = millis()+towers.get(i).hitCooldown;
       }
     }
+    for( int i = 0; i < boss.size(); i++ )//bosses
+    {
+      if( dist( xPos,yPos, boss.get(i).xPos,boss.get(i).yPos ) < (size+boss.get(i).size)/2 && active && millis() > boss.get(i).hitTimer && !bad )
+      {
+        boss.get(i).takeDamage(damage);
+        boss.get(i).hitTimer = millis()+boss.get(i).hitCooldown;
+      }
+    }
   }
   
   void setTraits()
