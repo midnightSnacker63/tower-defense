@@ -83,6 +83,8 @@ class UI
       rectMode(CENTER);
       fill(#835B10);
       rect(x,y,120,120,25);
+      if(millis() < shopTimer[i+shopScroll])
+        tint(255,00,00);  
       image(towerImage[i+shopScroll],x,y);//the tower images in shop
       fill(0);
       text(shopTimer[i+shopScroll],x,y+50);
