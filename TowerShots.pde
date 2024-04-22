@@ -83,7 +83,7 @@ class TowerShots
       case 2://wall
         return;
       case 3://cannon
-        damage = 5;
+        damage = 10;
         speed = 0.7;
         rotateSpeed = 0.05;
         knockback = 1;

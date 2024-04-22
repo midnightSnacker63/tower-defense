@@ -30,6 +30,8 @@ class Boss
   boolean active;
   boolean shoots;
   boolean slowed;
+  boolean rising;
+  boolean inPos;
   public Boss(int x, int y, int t)
   {
     xPos = x;
@@ -72,6 +74,28 @@ class Boss
       ySpd -= 0.1 * speed;
     }
     
+    if(rising && inPos)
+    {
+      yDest -= 1.;
+      xSpd *= 0.1;
+    }
+    if(!rising && inPos)
+    {
+      yDest += 1.;
+      xSpd *= 0.1;
+    }
+    
+    if(yPos < 0+size/2)
+    {
+      rising = false;
+      println("sinking");
+    }
+    if(yPos > height-size)
+    {
+      rising = true;
+      println("rising");
+    }
+    
     if(dist(xPos,yPos,xDest,yDest) > 25)//friction based on how far they are from their destination
     {
       xSpd *= 0.95;
@@ -85,10 +109,12 @@ class Boss
     if( abs(xSpd) < 0.15 && dist(xPos,yPos,xDest,yDest) < 25)//if close to destination and slow enough then it will just stop
     {
       xSpd = 0;
+      inPos = true;
     }
     if( abs(ySpd) < 0.15 && dist(xPos,yPos,xDest,yDest) < 25)//if close to destination and slow enough then it will just stop
     {
       ySpd = 0;
+      inPos = true;
     }
     xPos += xSpd;
     yPos += ySpd;
