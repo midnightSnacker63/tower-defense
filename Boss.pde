@@ -173,10 +173,9 @@ class Boss
   {
     if(millis() > shockWaveTimer && inPos)
     {
-      eShots.add( new EnemyShots(xPos,random(yPos-15,yPos+15),8));
+      eShots.add( new EnemyShots(xPos,random(yPos-150,yPos+150),8));
       shockWaveTimer = millis() + shockWaveCooldown;
       shockWaveCooldown = int(random(5000,25000));
-      println("yswdu8");
     }
   }
   

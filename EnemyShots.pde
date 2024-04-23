@@ -84,8 +84,8 @@ class EnemyShots
       case 7:
         return;
       case 8:
-        damage = 5;
-        speed = 1;
+        damage = 15;
+        speed = 1.5;
         return;
     }
   }

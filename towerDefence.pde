@@ -56,6 +56,7 @@ void setup()
   towers.add( new Towers(width - 225, 180,0));//do not remove this, it will mess up the shop
   loadImages();
   loadSounds();
+  noSmooth();
 }
 void draw()
 {
