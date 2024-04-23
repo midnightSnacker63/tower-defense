@@ -18,7 +18,7 @@ class UI
   " ",
   " ",
   };
-  
+  int towerPrices [] = {10,25,50,250,50,50,75,50,50,125,75,0};
   PImage sellIcon;
   public UI()
   {
@@ -83,11 +83,10 @@ class UI
       rectMode(CENTER);
       fill(#835B10);
       rect(x,y,120,120,25);
-      if(millis() < shopTimer[i+shopScroll])
+      if(money < towerPrices[i+shopScroll])
         tint(255,00,00);  
       image(towerImage[i+shopScroll],x,y);//the tower images in shop
       fill(0);
-      text(shopTimer[i+shopScroll],x,y+50);
       pop();
       if(dist(mouseX,mouseY,x,y) < boxSize/2)//displays tower descriptions when hovering over in shop
       {

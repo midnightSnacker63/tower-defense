@@ -332,6 +332,8 @@ void handleBoss()
   {
     b.drawBoss();
     b.moveBoss();
+    b.summonEnemies();
+    b.shockWave();
   }
   for(int i = 0; i < boss.size(); i++)
   {
@@ -527,9 +529,13 @@ void loadImages()
   enemyImage[6].resize(boxSize, 0);
   enemyImage[7] = loadImage("dummy.png");
   enemyImage[7].resize(boxSize, 0);
+  enemyImage[8] = loadImage("dummy.png");
+  enemyImage[8].resize(boxSize, 0);
   
   enemyShotImage[5] = loadImage("fireCharge.png");
   enemyShotImage[5].resize(boxSize/2, 0);
+  enemyShotImage[8] = loadImage("oldAnchorLeft.png");
+  enemyShotImage[8].resize(boxSize, 0);
   
   bossImage[0] = loadImage("EarlPumpernickel.png");
   bossImage[0].resize(boxSize*4,0);

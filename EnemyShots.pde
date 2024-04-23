@@ -83,6 +83,10 @@ class EnemyShots
         return;
       case 7:
         return;
+      case 8:
+        damage = 5;
+        speed = 1;
+        return;
     }
   }
   void checkForHit()//allows it to hit towers
