@@ -19,9 +19,9 @@ float power = 1;//muliplier for power so enemies get stronger in order to add ch
 int boxSize = 100;//the size of the tiles
 int life = 100;
 int money = 100;
-int enemyCooldown = 7500;//how long between enemies 
+int enemyCooldown = 7000;//how long between enemies 
 int enemyTimer = enemyCooldown;
-int waveCooldown = 60000;//how long between waves in milliseconds
+int waveCooldown = 50000;//how long between waves in milliseconds
 int waveTimer = 0;
 int wave;//how many waves have passed
 int difficulty = 1;//as time goes by this will increase, starts at 1
@@ -31,6 +31,7 @@ int shopTimer[] = {0,1,2,3,4,5,6,7,8,9,10,11,0,0,0,0};
 
 boolean gameStarted;
 boolean selling;//if true then towers will be sold upon clicking them 
+boolean bossPresent;
 
 PImage [] towerImage = new PImage[21];
 PImage [] enemyImage = new PImage[21];
@@ -62,8 +63,9 @@ void draw()
 {
   handleBackground();
   handleEnemies();
-  handleBoss();
+  
   handleTowers();
+  handleBoss();
   handleTowerShot();
   handleEnemyShots();
   handleExplosions();
@@ -72,52 +74,7 @@ void draw()
 }
 void keyPressed()
 {
-  if(key == 'e')
-  {
-    enemies.add(new Enemies(mouseX,mouseY,int(random(0,difficulty))));
-  }
-  if(key == 'b')
-  {
-    boss.add(new Boss(mouseX,mouseY,0));
-  }
-  if(key == 'E')//wave
-  {
-    sendWave(10);
-  }
-  if(key == 't' && !spaceOccupied())
-  {
-    towers.add(new Towers(mouseX,mouseY,1));
-  }
-  if(key == 'M')
-  {
-    money += 250;
-  }
-  if(key == 'B')
-  {
-    explosion.add( new Explosion(mouseX,mouseY,2));
-  }
-  if(key == 'V')
-  {
-    explosion.add( new Explosion(mouseX,mouseY,1));
-  }
-  if(key == 'X')
-  {
-    for(int i = 0; i < 25; i++)
-      explosion.add( new Explosion(random(width),random(height),0));
-  }
-  if(key == 'P')
-  {
-    power+=0.1;
-    println(power);
-  }
-  if(key == '2')
-  {
-    difficulty ++;
-  }
-  if(key == '1')
-  {
-    difficulty --;
-  }
+  debugKeys();
 }
 void mousePressed()
 {
@@ -242,7 +199,7 @@ void handleEnemies()
     else if(enemyCooldown <= 1000 && difficulty < 8)//increases difficulty whenever the timer is too fast
     {
       println("increasing difficulty, current time" + millis()/1000);
-      enemyCooldown = 7500;
+      enemyCooldown = 7000;
       difficulty += 1;
     }
     if( difficulty >= 8)
@@ -342,6 +299,19 @@ void handleBoss()
     {
       boss.remove(i);
     }
+  }
+  if(boss.size() >= 1)
+  {
+    bossPresent = true;
+  }
+  else
+  {
+    bossPresent = false;
+  }
+  if(wave >= 51 && !bossPresent)
+  {
+    boss.add(new Boss(width+250,height/2,0));
+    println("INCOMING BOSS!!!!!");
   }
 }
 
@@ -553,4 +523,59 @@ void loadImages()
 void loadSounds()
 {
   //test = new SoundFile(this, "coins.wav");
+}
+
+void debugKeys()
+{
+  if(key == 'e')
+  {
+    enemies.add(new Enemies(mouseX,mouseY,int(random(0,difficulty))));
+  }
+  if(key == 'b')
+  {
+    boss.add(new Boss(mouseX,mouseY,0));
+  }
+  if(key == 'E')//wave
+  {
+    sendWave(10);
+  }
+  if(key == 't' && !spaceOccupied())
+  {
+    towers.add(new Towers(mouseX,mouseY,1));
+  }
+  if(key == 'M')
+  {
+    money += 250;
+  }
+  if(key == 'B')
+  {
+    explosion.add( new Explosion(mouseX,mouseY,2));
+  }
+  if(key == 'V')
+  {
+    explosion.add( new Explosion(mouseX,mouseY,1));
+  }
+  if(key == 'X')
+  {
+    for(int i = 0; i < 25; i++)
+      explosion.add( new Explosion(random(width),random(height),0));
+  }
+  if(key == 'P')
+  {
+    power+=0.1;
+    println(power);
+  }
+  if(key == '2')
+  {
+    difficulty ++;
+  }
+  if(key == '1')
+  {
+    difficulty --;
+  }
+  if(key == '3')
+    wave--;
+    
+  if(key == '4')
+    wave++;
 }

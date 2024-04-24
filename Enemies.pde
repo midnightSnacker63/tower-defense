@@ -186,7 +186,7 @@ class Enemies
     if(health <= 0)//kill enemy if health is 0
     {
       active = false;
-      money += maxHealth/2;
+      money += maxHealth/4;
       if(explosive)//explode if explosive
       {
         explosion.add(new Explosion(xPos,yPos,3));

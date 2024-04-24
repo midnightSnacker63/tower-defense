@@ -27,10 +27,10 @@ class Boss
   
   int slowedTimer;
   
-  int summonTimer = 0;
+  int summonTimer = 15000;
   int summonCooldown = 1000;
   
-  int shockWaveTimer;
+  int shockWaveTimer = 30000;
   int shockWaveCooldown = 1000;
     
   int red = 255;
@@ -55,16 +55,19 @@ class Boss
   
   void drawBoss()
   {
-    circle(xDest,yDest,50);
+    tint(255,10,10);
+    image(warning,xDest,yDest);
+    tint(255,255,255);
     image(bossImage[type],xPos,yPos);
     
     push();//health bar
     rectMode(CORNER);
     noFill();
-    rect(xPos-size/2-25, yPos+150, maxHealth*0.3, 20);
+    rect(20, height-150, maxHealth*0.43, 20);
     fill(255, 10, 0);
-    rect(xPos-size/2-25, yPos+150, health*0.3, 20);
+    rect(20, height-150, health*0.43, 20);
     pop();
+    
   }
   
   void moveBoss()
@@ -137,7 +140,7 @@ class Boss
     {
       case 0:
         size = boxSize * 3;
-        maxHealth = 1200;
+        maxHealth = 2000;
         speed = 1;
         damage = 10;
         cooldown = 5000;
@@ -163,9 +166,10 @@ class Boss
   {
     if(millis() > summonTimer && inPos)
     {
+      summonCooldown = int(random(5000,25000));
       enemies.add(new Enemies(xPos + random(-150,-50),yPos + random(-150,150),int(random(0,difficulty))));
       summonTimer = millis() + summonCooldown;
-      summonCooldown = int(random(5000,25000));
+     
     }
   }
   
@@ -173,9 +177,10 @@ class Boss
   {
     if(millis() > shockWaveTimer && inPos)
     {
+      shockWaveCooldown = int(random(15000,35000));
       eShots.add( new EnemyShots(xPos,random(yPos-150,yPos+150),8));
       shockWaveTimer = millis() + shockWaveCooldown;
-      shockWaveCooldown = int(random(5000,25000));
+      
     }
   }
   

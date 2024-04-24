@@ -5,12 +5,12 @@ class UI
   "CatFish, moderate stats\n$25 ",
   "Coral,doesn't attack but has\nhigh health\n$50",
   "CannonFish, high damage with\nexplosion but slow\n$250",
-  "ArcherFish,fast speed but low \ndamage\n$50",
+  "ArcherFish,fast speed but low \ndamage\n$75",
   "SunFish, produces money\n$50",
   "HeartFish, doesn't attack but \nhas moderate health and \nregenerates health\n$75",
   "pushes back enemies\n$50 ",
   "Mines, they explode if touched\n$50 ",
-  "Double SunFish, they make\nmore money \n$125",
+  "Double SunFish, they make\nmore money \n$150",
   "IceFish, slows enemies\n$75 ",
   " ",
   " ",
@@ -18,7 +18,7 @@ class UI
   " ",
   " ",
   };
-  int towerPrices [] = {10,25,50,250,50,50,75,50,50,125,75,0};
+  int towerPrices [] = {10,25,50,250,75,50,75,50,50,125,75,0};
   PImage sellIcon;
   public UI()
   {

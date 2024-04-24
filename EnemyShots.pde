@@ -36,7 +36,7 @@ class EnemyShots
       rotate(angle);
       angle+=rotateSpeed;
       tint(red,green,blue);
-      image(enemyShotImage[type],0,0);
+      image(enemyShotImage[type],0,0,size,size);
       //circle(xPos,yPos,50);
       pop();
     }
@@ -83,9 +83,10 @@ class EnemyShots
         return;
       case 7:
         return;
-      case 8:
-        damage = 15;
-        speed = 1.5;
+      case 8://anchor
+        damage = 25;
+        speed = .2;
+        size = boxSize*1.5;
         return;
     }
   }

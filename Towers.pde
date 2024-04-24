@@ -180,10 +180,10 @@ class Towers
       case 4://fast (fast with low damage)
         cooldown = 400;
         maxHealth = 15;
-        price = 50;
+        price = 75;
         return;
       case 5://producer (makes money)
-        cooldown = 7500;
+        cooldown = 10000;
         maxHealth = 10;
         price = 50;
         canAttack = false;
@@ -208,10 +208,10 @@ class Towers
         price = 50;
         return;
       case 9://better producer (makes more money)
-        cooldown = 7500;
+        cooldown = 10000;
         produceAmount = 10;
         maxHealth = 10;
-        price = 125;
+        price = 150;
         canAttack = false;
         producer = true;
         return;
