@@ -16,7 +16,7 @@ class Boss
   int type;
   
   int timer;
-  int cooldown = 600;//how fast they attack
+  int cooldown = 100;//how fast they attack
   int normalCooldown = cooldown;
   
   int hitTimer;// for when they get hit by bombs
@@ -27,10 +27,10 @@ class Boss
   
   int slowedTimer;
   
-  int summonTimer = 15000;
+  int summonTimer = millis() + 15000;
   int summonCooldown = 1000;
   
-  int shockWaveTimer = 30000;
+  int shockWaveTimer = millis() + 30000;
   int shockWaveCooldown = 1000;
     
   int red = 255;
@@ -59,7 +59,6 @@ class Boss
     image(warning,xDest,yDest);
     tint(255,255,255);
     image(bossImage[type],xPos,yPos);
-    
     push();//health bar
     rectMode(CORNER);
     noFill();
@@ -143,7 +142,7 @@ class Boss
         maxHealth = 2000;
         speed = 1;
         damage = 10;
-        cooldown = 5000;
+        cooldown = 500;
         xDest = 780;
         yDest = 375;
         return;
@@ -166,9 +165,10 @@ class Boss
   {
     if(millis() > summonTimer && inPos)
     {
-      summonCooldown = int(random(5000,25000));
+      summonCooldown = int(random(7500,25000));
       enemies.add(new Enemies(xPos + random(-150,-50),yPos + random(-150,150),int(random(0,difficulty))));
       summonTimer = millis() + summonCooldown;
+      println("pop " + summonCooldown / 1000);
      
     }
   }
@@ -182,6 +182,16 @@ class Boss
       shockWaveTimer = millis() + shockWaveCooldown;
       
     }
+  }
+  
+  void hitTowers()//hitting towers
+  {
+    for( int i = 0; i < towers.size(); i++ )
+      if( dist( xPos,yPos, towers.get(i).xPos,towers.get(i).yPos ) < ((size+towers.get(i).size)/2) && towers.get(i).bought && millis() > timer)
+      {
+        timer = millis() + cooldown;
+        towers.get(i).takeDamage(damage);
+      }
   }
   
   boolean onGrid()//tells you when enemy is on the grid

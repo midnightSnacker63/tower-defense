@@ -201,6 +201,7 @@ void handleEnemies()
       println("increasing difficulty, current time" + millis()/1000);
       enemyCooldown = 7000;
       difficulty += 1;
+      power+=0.015;
     }
     if( difficulty >= 8)
     {
@@ -292,6 +293,7 @@ void handleBoss()
     b.moveBoss();
     b.summonEnemies();
     b.shockWave();
+    b.hitTowers();
   }
   for(int i = 0; i < boss.size(); i++)
   {
@@ -308,7 +310,7 @@ void handleBoss()
   {
     bossPresent = false;
   }
-  if(wave >= 51 && !bossPresent)
+  if(wave >= 45 && !bossPresent)
   {
     boss.add(new Boss(width+250,height/2,0));
     println("INCOMING BOSS!!!!!");

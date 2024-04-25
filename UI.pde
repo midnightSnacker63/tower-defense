@@ -18,7 +18,7 @@ class UI
   " ",
   " ",
   };
-  int towerPrices [] = {10,25,50,250,75,50,75,50,50,125,75,0};
+  int towerPrices [] = {10,25,50,250,75,50,75,50,50,150,75,0};
   PImage sellIcon;
   public UI()
   {

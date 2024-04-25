@@ -40,7 +40,7 @@ class EnemyShots
       //circle(xPos,yPos,50);
       pop();
     }
-    if(xPos > width-250)
+    if(xPos < -size)
     {
       active = false;
     }
