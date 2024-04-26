@@ -113,7 +113,7 @@ class TowerShots
         knockback = 0.1;
         rotateSpeed = 0.1;
         cold = true;
-        freezeTime = 2500;
+        freezeTime = 2000;
         return;
     }
   }

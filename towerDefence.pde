@@ -54,7 +54,7 @@ void setup()
   size(1200,800);
   imageMode(CENTER);
   UI = new UI();
-  towers.add( new Towers(width - 225, 180,0));//do not remove this, it will mess up the shop
+  towers.add( new Towers(width - 225, 180,0));//Do NOT remove this, it will mess up the shop
   loadImages();
   loadSounds();
   noSmooth();
@@ -63,7 +63,6 @@ void draw()
 {
   handleBackground();
   handleEnemies();
-  
   handleTowers();
   handleBoss();
   handleTowerShot();
@@ -161,7 +160,7 @@ void handleTowers()
         int y = 180+(150*(j/2));
         towers.add( new Towers(x, y, j+shopScroll));
         shopTimer[j+shopScroll] = millis() + shopCooldown[j+shopScroll];
-        println(j+shopScroll);
+        //println(j+shopScroll);
       }
     }
   }
@@ -220,6 +219,9 @@ void handleEnemies()
   if(life <= 0)//lose screen
   {
     enemies.clear();
+    towers.clear();
+    boss.clear();
+    money = 0;
     push();
     fill(255);
     textSize(25);
@@ -430,7 +432,7 @@ void loadImages()
   towerImage[9].resize(boxSize, 0);
   towerImage[10] = loadImage("iceCubeFish.png");
   towerImage[10].resize(boxSize, 0);
-  towerImage[11] = loadImage("dummy.png");
+  towerImage[11] = loadImage("empty.png");
   towerImage[11].resize(boxSize, 0);
   towerImage[12] = loadImage("dummy.png");
   towerImage[12].resize(boxSize, 0);
@@ -465,7 +467,7 @@ void loadImages()
   towerShotImage[9].resize(boxSize/2, 0);
   towerShotImage[10] = loadImage("iceCube.png");//slow down
   towerShotImage[10].resize(boxSize/2, 0);
-  towerShotImage[11] = loadImage("dummy.png");
+  towerShotImage[11] = loadImage("empty.png");
   towerShotImage[11].resize(boxSize/2, 0);
   towerShotImage[12] = loadImage("dummy.png");
   towerShotImage[12].resize(boxSize/2, 0);

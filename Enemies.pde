@@ -154,7 +154,7 @@ class Enemies
         return;
       case 5://shoot at towers
         maxHealth = 20 * power;
-        speed = .95 * power;
+        speed = .9 * power;
         cooldown = 1000;
         knockedBack = 1;
         damage = 1 * power;

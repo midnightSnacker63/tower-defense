@@ -27,7 +27,7 @@ class Boss
   
   int slowedTimer;
   
-  int summonTimer = millis() + 15000;
+  int summonTimer = millis() + 10000;
   int summonCooldown = 1000;
   
   int shockWaveTimer = millis() + 30000;
@@ -165,7 +165,7 @@ class Boss
   {
     if(millis() > summonTimer && inPos)
     {
-      summonCooldown = int(random(7500,25000));
+      summonCooldown = int(random(7500,25000)/power);
       enemies.add(new Enemies(xPos + random(-150,-50),yPos + random(-150,150),int(random(0,difficulty))));
       summonTimer = millis() + summonCooldown;
       println("pop " + summonCooldown / 1000);
@@ -177,7 +177,7 @@ class Boss
   {
     if(millis() > shockWaveTimer && inPos)
     {
-      shockWaveCooldown = int(random(15000,35000));
+      shockWaveCooldown = int(random(15000,35000)/power);
       eShots.add( new EnemyShots(xPos,random(yPos-150,yPos+150),8));
       shockWaveTimer = millis() + shockWaveCooldown;
       

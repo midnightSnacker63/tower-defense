@@ -163,7 +163,7 @@ class Towers
         maxHealth = 15;
         return;
       case 1://basic normal thing
-        price = 25;
+        price = 20;
         maxHealth = 25;
         cooldown = 1250;
         return;
@@ -174,17 +174,17 @@ class Towers
         return;
       case 3://cannon (slow with high damage)
         cooldown = 10000;
-        maxHealth = 50;
+        maxHealth = 25;
         price = 250;
         return;
       case 4://fast (fast with low damage)
-        cooldown = 400;
+        cooldown = 450;
         maxHealth = 15;
         price = 75;
         return;
       case 5://producer (makes money)
         cooldown = 10000;
-        maxHealth = 10;
+        maxHealth = 5;
         price = 50;
         canAttack = false;
         producer = true;
@@ -198,7 +198,7 @@ class Towers
         return;
       case 7://push back
         cooldown = 5000;
-        maxHealth = 25;
+        maxHealth = 15;
         price = 50;
         return;
       case 8://mines
@@ -219,6 +219,11 @@ class Towers
         maxHealth = 25;
         cooldown = 1250;
         price = 75;
+        return;
+      case 11://icecube fish
+        maxHealth = 0;
+        cooldown = 10000;
+        price = 0;
         return;
         
       case 20://
