@@ -162,14 +162,14 @@ class Enemies
         shotCooldown = 1500;
         return;
       case 6://tbd
-        maxHealth = 10 * power;
+        maxHealth = 1 * power;
         speed = 1 * power;
         cooldown = 600;
         knockedBack = 1;
         damage = 1 * power;
         return;
       case 7://tbd
-        maxHealth = 10 * power;
+        maxHealth = 1 * power;
         speed = 1 * power;
         cooldown = 600;
         knockedBack = 1;

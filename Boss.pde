@@ -20,7 +20,7 @@ class Boss
   int normalCooldown = cooldown;
   
   int hitTimer;// for when they get hit by bombs
-  int hitCooldown = 250;
+  int hitCooldown = 150;
   
   int shotTimer;//how fast they shoot if they do
   int shotCooldown;

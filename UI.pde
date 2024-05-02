@@ -113,4 +113,12 @@ class UI
     
   }
   
+  void debugInfo()
+  {
+    text("tower shot Count "+tShots.size(),width-275,height-75);
+    text("enemy shot count "+eShots.size(),width-275,height-65);
+    text("enemy count "+enemies.size(),width-275,height-55);
+    //text("",width-275,height-);
+  }
+  
 }

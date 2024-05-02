@@ -54,6 +54,7 @@ void setup()
   size(1200,800);
   imageMode(CENTER);
   UI = new UI();
+  //fullScreen();
   towers.add( new Towers(width - 225, 180,0));//Do NOT remove this, it will mess up the shop
   loadImages();
   loadSounds();
@@ -175,6 +176,7 @@ void handleForeground()
 {
   UI.drawInterface();
   UI.drawInfo();
+  //UI.debugInfo();
 }
 void handleEnemies()
 {
@@ -500,11 +502,11 @@ void loadImages()
   enemyImage[4].resize(boxSize, 0);
   enemyImage[5] = loadImage("PurpleDragon.png");
   enemyImage[5].resize(boxSize, 0);
-  enemyImage[6] = loadImage("dummy.png");
+  enemyImage[6] = loadImage("empty.png");
   enemyImage[6].resize(boxSize, 0);
-  enemyImage[7] = loadImage("dummy.png");
+  enemyImage[7] = loadImage("empty.png");
   enemyImage[7].resize(boxSize, 0);
-  enemyImage[8] = loadImage("dummy.png");
+  enemyImage[8] = loadImage("empty.png");
   enemyImage[8].resize(boxSize, 0);
   
   enemyShotImage[5] = loadImage("fireCharge.png");
