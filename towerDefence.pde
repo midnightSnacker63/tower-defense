@@ -207,7 +207,7 @@ void handleEnemies()
     if( difficulty >= 8)
     {
       println("increasing power: " + power);
-      power += 0.005;
+      power += 0.001;
     }
     
   }

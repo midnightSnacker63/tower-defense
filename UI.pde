@@ -2,7 +2,7 @@ class UI
 {
   String towerDescriptions[] = {
   "Small Fry, basic low damage\n$10 ",
-  "CatFish, moderate stats\n$25 ",
+  "CatFish, moderate stats\n$20 ",
   "Coral,doesn't attack but has\nhigh health\n$50",
   "CannonFish, high damage with\nexplosion but slow\n$250",
   "ArcherFish,fast speed but low \ndamage\n$75",
@@ -18,7 +18,7 @@ class UI
   " ",
   " ",
   };
-  int towerPrices [] = {10,25,50,250,75,50,75,50,50,150,75,0};
+  int towerPrices [] = {10,20,50,250,75,50,75,50,50,150,75,0};
   PImage sellIcon;
   public UI()
   {
@@ -91,7 +91,7 @@ class UI
       if(dist(mouseX,mouseY,x,y) < boxSize/2)//displays tower descriptions when hovering over in shop
       {
         push();
-        textSize(20);
+        textSize(18);
         fill(0);
         text(towerDescriptions[i+shopScroll],width-275,height-75);
         pop();
